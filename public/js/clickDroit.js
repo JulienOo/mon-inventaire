@@ -221,6 +221,7 @@
     toggleMenuOff();
 
     var content = taskItemInContext.innerHTML;
+      console.log(taskItemInContext);
 
     if (link.getAttribute("data-action") == "View")
     {
@@ -230,13 +231,13 @@
     else if (link.getAttribute("data-action") == "Edit") 
     {
       console.log("modification de la catégorie demandée");
-      taskItemInContext.removeAttribute("href");
+      // taskItemInContext.setAttribute("style", "pointer-events:none;");;
+      // taskItemInContext.removeAttribute("href");
       console.log("content : "+content);
 
-      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validation("+taskItemInContext.getAttribute("data-id")+")'>valider</button>"
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+")'>valider</button>"
 
 
-      console.log(taskItemInContext);
     }
     else
     {

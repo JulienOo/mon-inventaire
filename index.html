@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>listes des catégories</title>
-	<link href="styles.css" rel="stylesheet">
-	<link href="clickDroit.css" rel="stylesheet">
+	<link href="public/css/styles.css" rel="stylesheet">
+	<link href="public/css/clickDroit.css" rel="stylesheet">
 </head>
 <body>
 	<header>
@@ -15,17 +15,19 @@
 
 	</nav>
 	<section id="parentCategories tasks">
-		<a class="cube task" href="https://www.google.fr" data-id="1">informatique</a>
-		<a class="cube task" href="https://www.bing.fr" data-id="2">vestimentaire</a>
-		<a class="cube task" href="https://www.google.fr" data-id="3">informatique</a>
-		<a class="cube task" href="https://www.bing.fr" data-id="4">médicaments</a>
-		<a class="cube task" href="https://www.google.fr" data-id="5">literie</a>
-		<a id="creationCategorie" class="cube ajouterCategorie" href="#"><img src="https://www.svgrepo.com/show/152121/plus.svg"></a>
+		<div class="cube task" href="https://www.google.fr" data-id="1">informatique</div>
+		<div class="cube task" href="https://www.bing.fr" data-id="2">vestimentaire</div>
+		<div class="cube task" href="https://www.bing.fr" data-id="3">médicaments</div>
+		<div class="cube task" href="https://www.google.fr" data-id="4">literie</div>
+		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationCategorie()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
 	</section>
 	<nav>
 		
 	</nav>
 
+
+
+<!-- menu click droit -->
  <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
       <li class="context-menu__item">
@@ -39,32 +41,10 @@
       </li>
     </ul>
   </nav>
-	<script type="text/javascript">
-creationCategorie.onclick = function () {
-  alert('Click just happened')
-}
-
-function validation(dataId)
-{
-	value = document.getElementById("parentCategories tasks").children[dataId-1].children[0].value;
-	placeholder = document.getElementById("parentCategories tasks").children[dataId-1].children[0].placeholder;
 
 
-	if (value == placeholder)
-	{
-		alert("Aucun changement n'a été fais.");
-	} else if (value == "") {
-		alert("Merci de choisir un nom")
-	} else {
+	<script type="text/javascript" src="public/js/categories.js"></script>
 
-	}
-
-	document.getElementById("parentCategories tasks").children[dataId-1].innerHTML = value;
-	console.log(value);
-
-}
-	</script>
-
-	<script type="text/javascript" src="clickDroit.js"></script>
+	<script type="text/javascript" src="public/js/clickDroit.js"></script>
 </body>
 </html>

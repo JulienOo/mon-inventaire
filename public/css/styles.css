@@ -40,10 +40,12 @@ section{
 	margin-bottom: 25px;
 }
 
-a{
+div{
 
 	color: black;
 	text-decoration: none;
+
+	pointer-events: auto;
 
 }
 
