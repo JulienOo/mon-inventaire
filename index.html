@@ -16,11 +16,11 @@
 	</nav>
 	<section id="parentCategories tasks">
 		<a class="cube task" href="https://www.google.fr" data-id="1">informatique</a>
-		<a class="cube task" href="https://www.google.fr" data-id="2">vestimentaire</a>
+		<a class="cube task" href="https://www.bing.fr" data-id="2">vestimentaire</a>
 		<a class="cube task" href="https://www.google.fr" data-id="3">informatique</a>
-		<a class="cube task" href="https://www.google.fr" data-id="4">médicaments</a>
+		<a class="cube task" href="https://www.bing.fr" data-id="4">médicaments</a>
 		<a class="cube task" href="https://www.google.fr" data-id="5">literie</a>
-		<a id="creationCategorie" class="cube ajouterCategorie" href="#"><img src="https://www.svgrepo.com/show/124993/addition-symbol.svg"></a>
+		<a id="creationCategorie" class="cube ajouterCategorie" href="#"><img src="https://www.svgrepo.com/show/152121/plus.svg"></a>
 	</section>
 	<nav>
 		
@@ -44,6 +44,25 @@ creationCategorie.onclick = function () {
   alert('Click just happened')
 }
 
+function validation(dataId)
+{
+	value = document.getElementById("parentCategories tasks").children[dataId-1].children[0].value;
+	placeholder = document.getElementById("parentCategories tasks").children[dataId-1].children[0].placeholder;
+
+
+	if (value == placeholder)
+	{
+		alert("Aucun changement n'a été fais.");
+	} else if (value == "") {
+		alert("Merci de choisir un nom")
+	} else {
+
+	}
+
+	document.getElementById("parentCategories tasks").children[dataId-1].innerHTML = value;
+	console.log(value);
+
+}
 	</script>
 
 	<script type="text/javascript" src="clickDroit.js"></script>

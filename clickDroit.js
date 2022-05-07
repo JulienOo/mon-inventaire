@@ -219,6 +219,31 @@
   function menuItemListener( link ) {
     console.log( "Task ID - " + taskItemInContext.getAttribute("data-id") + ", Task action - " + link.getAttribute("data-action"));
     toggleMenuOff();
+
+    var content = taskItemInContext.innerHTML;
+
+    if (link.getAttribute("data-action") == "View")
+    {
+      console.log("Redirection vers la page demandée");
+      window.location.href=taskItemInContext.getAttribute("href")
+    } 
+    else if (link.getAttribute("data-action") == "Edit") 
+    {
+      console.log("modification de la catégorie demandée");
+      taskItemInContext.removeAttribute("href");
+      console.log("content : "+content);
+
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validation("+taskItemInContext.getAttribute("data-id")+")'>valider</button>"
+
+
+      console.log(taskItemInContext);
+    }
+    else
+    {
+      taskItemInContext.remove();
+    }
+
+
   }
 
   /**
