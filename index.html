@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>listes des catégories</title>
+	<link href="styles.css" rel="stylesheet">
+	<link href="clickDroit.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		Catégories
+	</header>
+	<nav>
+
+	</nav>
+	<section id="parentCategories tasks">
+		<a class="cube task" href="https://www.google.fr" data-id="1">informatique</a>
+		<a class="cube task" href="https://www.google.fr" data-id="2">vestimentaire</a>
+		<a class="cube task" href="https://www.google.fr" data-id="3">informatique</a>
+		<a class="cube task" href="https://www.google.fr" data-id="4">médicaments</a>
+		<a class="cube task" href="https://www.google.fr" data-id="5">literie</a>
+		<a id="creationCategorie" class="cube ajouterCategorie" href="#"><img src="https://www.svgrepo.com/show/124993/addition-symbol.svg"></a>
+	</section>
+	<nav>
+		
+	</nav>
+
+ <nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+      <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
+      </li>
+      <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="Edit"><i class="fa fa-edit"></i>Modifier</a>
+      </li>
+      <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>Supprimer</a>
+      </li>
+    </ul>
+  </nav>
+	<script type="text/javascript">
+creationCategorie.onclick = function () {
+  alert('Click just happened')
+}
+
+	</script>
+
+	<script type="text/javascript" src="clickDroit.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+body{
+	display: flex;
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: center;
+}
+
+header{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 2.5em;
+
+	margin-bottom: 50px;
+}
+
+section{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
+	width: 65vw;
+
+	font-size: 1.5em;
+}
+
+.cube{
+	height: 250px;
+	width: 250px;
+
+	background: blueviolet;
+
+/* permet le centrage du texte dans les cubes */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-bottom: 25px;
+}
+
+a{
+
+	color: black;
+	text-decoration: none;
+
+}
+
+.ajouterCategorie{
+	background-color: white;
+}
+
