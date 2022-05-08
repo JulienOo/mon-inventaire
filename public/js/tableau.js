@@ -31,7 +31,7 @@ colonne = parseInt(tableauDataId[1])-1;
 
 }
 
-function creationElement()
+function creationLigne()
 {
   // alert("création élément !");
 
@@ -39,8 +39,6 @@ function creationElement()
   contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
       
     
-
-
 
     nombreColonne = document.getElementById("colonnes").childElementCount;
     
@@ -104,6 +102,41 @@ function creationElement()
     // var tdText = document.createTextNode(value);
     // td.appendChild(tdText);
       
+  }
+
+
+  function creationColonne()
+  {
+
+    parent = document.getElementById("colonnes");
+
+    th = document.createElement('th');
+    th.setAttribute("type", "string");
+    th.innerHTML = "nouvelle colonne"
+    parent.appendChild(th);
+
+
+    nombreLigne = document.getElementById("tasks").childElementCount+1;
+
+    var b=0;
+    for (var a=1; a < nombreLigne; a++) 
+    {
+
+      parent = document.getElementById("tasks").children[b];
+
+      console.log("tour numéro : "+nombreLigne);
+      document.getElementById("tasks");
+
+      var td = document.createElement('td');
+      td.setAttribute("class", "task");
+      td.setAttribute("data-id", "MDR");
+      td.innerHTML = "vide"
+      parent.appendChild(td);
+
+      b++;
+    }
+
+
   }
 
 // $(function(){
