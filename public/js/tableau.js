@@ -48,7 +48,6 @@ function creationElement()
     console.log("nombre colonnes :"+nombreColonne);
 
     parent = document.getElementById("tasks");
-    valeur = "voici un text"
 
     nombreLigne = document.getElementById("tasks").childElementCount+1;
 
@@ -69,7 +68,7 @@ function creationElement()
 
       // console.log("string");
 
-      valeur = "Valeur par défaut";
+      valeur = "article numéro "+nombreLigne;
     } else if (type == "int") {
 
       // console.log("int");

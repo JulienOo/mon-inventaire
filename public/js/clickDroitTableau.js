@@ -247,9 +247,47 @@
       console.log(taskItemInContext.getAttribute("data-id").split("-"));
       const tableauDataId = taskItemInContext.getAttribute("data-id").split("-");
 
-      const ligne = parseInt(tableauDataId[0]);
 
-      console.log(document.getElementById("task-"+ligne).remove());
+
+
+      var ligne = parseInt(tableauDataId[0]);
+      var ligneRestante = document.getElementById("tasks").childElementCount+1
+      var nombreColonne = document.getElementById("colonnes").childElementCount;
+
+
+      document.getElementById("task-"+ligne).remove()
+
+
+
+      console.log("nombre des lignes total restantes : "+ligneRestante);
+      console.log("numero de la ligne suprimé : "+ligne);
+      console.log("nombre de colonnes : "+nombreColonne);
+
+      var ligneBis=ligne++;
+      while (ligne < ligneRestante)
+      {
+        console.log("1")
+        console.log(ligneBis);
+        console.log(ligne);
+        console.log("1")
+
+        //console.log(document.getElementById("task-"+ligne));
+
+        var etage = document.getElementById("task-"+ligne)
+        console.log(etage);
+        var b=1;
+        for (var i = 0; i < nombreColonne; i++) 
+        {
+          etage.children[i].setAttribute("data-id", ligneBis+"-"+b);
+
+          b++;
+        }
+        document.getElementById("task-"+ligne).setAttribute("id", "task-"+ligneBis);
+        console.log(ligne);
+
+        ligneBis++;
+        ligne++;
+      }
     }
 
 
