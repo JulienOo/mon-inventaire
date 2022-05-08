@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>catégorie - Informatique</title>
+	<link href="public/css/tableau.css" rel="stylesheet">
+	<link href="public/css/styles.css" rel="stylesheet">
+	<link href="public/css/clickDroit.css" rel="stylesheet">
+
+</head>
+<body>
+	<header>
+		informatique - câbles
+	</header>
+
+	<section id="parentCategories tasks">
+	<table id="keywords" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr id="colonnes">
+        <th type="string"><span>Keywords</span></th>
+        <th type="double"><span>Impressions</span></th>
+        <th type="int"><span>Clicks</span></th>
+        <th type="int"><span>CTR</span></th>
+        <th type="double"><span>Rank</span></th>
+      </tr>
+    </thead>
+    <tbody id="tasks">
+      <tr id="task-1">
+        <td class="task" data-id="1-1" class="lalign">silly tshirts</td>
+        <td class="task" data-id="1-2">6,000</td>
+        <td class="task" data-id="1-3">110</td>
+        <td class="task" data-id="1-4">1</td>
+        <td class="task" data-id="1-5">22.2</td>
+      </tr>
+      <tr id="task-2">
+        <td class="task" data-id="2-1" class="lalign">desktop workspace photos</td>
+        <td class="task" data-id="2-2" >2,200</td>
+        <td class="task" data-id="2-3" >500</td>
+        <td class="task" data-id="2-4" >22</td>
+        <td class="task" data-id="2-5" >8.9</td>
+      </tr>
+    </tbody>
+  </table>
+	</section>
+
+<section class="parentCroixTableau">
+	<section class="croixTableau">
+		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationElement()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
+		<p>ajouter une ligne</p>
+	</section>
+	<!-- <section class="croixTableau">
+		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationElement()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
+		<p>ajouter une colonne</p>
+	</section> -->
+</section>
+
+
+<!-- menu click droit -->
+ <nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+<!--       <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
+      </li> -->
+      <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="Edit"><i class="fa fa-edit"></i>Modifier</a>
+      </li>
+      <li class="context-menu__item">
+        <a href="#" class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>Supprimer la ligne</a>
+      </li>
+    </ul>
+  </nav>
+
+
+	<script type="text/javascript" src="public/js/clickDroitTableau.js"></script>
+	<script type="text/javascript" src="public/js/tableau.js"></script>
+
+</body>
+</html>
