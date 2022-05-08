@@ -66,7 +66,7 @@ function creationLigne()
 
       // console.log("string");
 
-      valeur = "article numéro "+nombreLigne;
+      valeur = "vide";
     } else if (type == "int") {
 
       // console.log("int");
