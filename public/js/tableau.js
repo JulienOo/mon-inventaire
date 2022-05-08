@@ -123,13 +123,13 @@ function creationLigne()
     {
 
       parent = document.getElementById("tasks").children[b];
-
+      taille = document.getElementById("tasks").children[b].childElementCount+1;
       console.log("tour numéro : "+nombreLigne);
       document.getElementById("tasks");
 
       var td = document.createElement('td');
       td.setAttribute("class", "task");
-      td.setAttribute("data-id", "MDR");
+      td.setAttribute("data-id", a+"-"+taille);
       td.innerHTML = "vide"
       parent.appendChild(td);
 
