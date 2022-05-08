@@ -2,7 +2,7 @@ function validationEditionTableau(dataId)
 {
   console.log(typeof dataId);
 
-console.log(dataId);
+console.log("tt"+dataId);
 
 console.log(dataId.split("-"));
 const tableauDataId = dataId.split("-");
@@ -11,21 +11,27 @@ ligne = parseInt(tableauDataId[0])-1;
 colonne = parseInt(tableauDataId[1])-1;
 
 
+  if (ligne != 0)
+  {
 
   value = document.getElementById("tasks").children[ligne].children[colonne].children[0].value
 
   placeholder = document.getElementById("tasks").children[ligne].children[colonne].children[0].placeholder;
-
+  }
+  else
+  {
+    console.log("OK")
+  }
 
   if (value === placeholder) {
-    alert("Merci de modifier le nom.");
+    alert("Merci de modifier la valeur.");
   } else if (value == "") {
-    alert("Merci de choisir un nom")
+    alert("Merci d'entrer une valeur")
   } else {
   document.getElementById("tasks").children[ligne].children[colonne].innerHTML = value;
 
-  }
 
+}
 
   // console.log(value);
 
