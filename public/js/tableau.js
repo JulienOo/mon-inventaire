@@ -46,7 +46,7 @@ function creationLigne()
       
     
 
-    nombreColonne = document.getElementById("colonnes").childElementCount;
+    nombreColonne = document.getElementById("colonnes head").childElementCount;
     
 
     console.log("nombre colonnes :"+nombreColonne);
@@ -65,7 +65,7 @@ function creationLigne()
     {
 
       // console.log("bonsoir "+a);
-    type = document.getElementById("colonnes").children[a].getAttribute("type");
+    type = document.getElementById("colonnes head").children[a].getAttribute("type");
     // console.log(type);
 
     if (type == "string") {
@@ -114,7 +114,7 @@ function creationLigne()
   function creationColonne()
   {
 
-    parent = document.getElementById("colonnes");
+    parent = document.getElementById("colonnes head");
 
     th = document.createElement('th');
     th.setAttribute("type", "string");
