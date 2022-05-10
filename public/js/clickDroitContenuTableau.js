@@ -113,6 +113,7 @@
       taskItemInContext = clickInsideElement( e, taskItemClassName );
 
       if ( taskItemInContext ) {
+        // ici
         e.preventDefault();
         toggleMenuOn();
         positionMenu(e);
@@ -139,7 +140,8 @@
           toggleMenuOff();
         }
       }
-    });
+    }, console.log("this +"+this));
+
   }
 
   /**

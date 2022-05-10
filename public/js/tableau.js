@@ -10,21 +10,23 @@ const tableauDataId = dataId.split("-");
 ligne = parseInt(tableauDataId[0])-1;
 colonne = parseInt(tableauDataId[1])-1;
 
+var value, placeholder;
 
-  if (ligne != 0)
-  {
+  // if (ligne != 0)
+  // {
 
   value = document.getElementById("tasks").children[ligne].children[colonne].children[0].value
 
   placeholder = document.getElementById("tasks").children[ligne].children[colonne].children[0].placeholder;
-  }
-  else
-  {
-    console.log("OK")
-  }
+  // }
+  // else
+  // {
+  //   console.log("OK")
+  // }
 
   if (value === placeholder) {
-    alert("Merci de modifier la valeur.");
+    console.log("Merci de modifier la valeur.");
+    document.getElementById("tasks").children[ligne].children[colonne].innerHTML = value;
   } else if (value == "") {
     alert("Merci d'entrer une valeur")
   } else {
@@ -46,7 +48,7 @@ function creationLigne()
       
     
 
-    nombreColonne = document.getElementById("colonnes head").childElementCount;
+    nombreColonne = document.getElementById("head").childElementCount;
     
 
     console.log("nombre colonnes :"+nombreColonne);
@@ -65,7 +67,7 @@ function creationLigne()
     {
 
       // console.log("bonsoir "+a);
-    type = document.getElementById("colonnes head").children[a].getAttribute("type");
+    type = document.getElementById("head").children[a].getAttribute("type");
     // console.log(type);
 
     if (type == "string") {
@@ -77,12 +79,12 @@ function creationLigne()
 
       // console.log("int");
 
-      valeur = "25";
+      valeur = "0";
     } else {
 
       // console.log("double");
 
-      valeur = "250.50"
+      valeur = "0.0"
     }
 
 
@@ -114,7 +116,7 @@ function creationLigne()
   function creationColonne()
   {
 
-    parent = document.getElementById("colonnes head");
+    parent = document.getElementById("head");
 
     th = document.createElement('th');
     th.setAttribute("type", "string");
