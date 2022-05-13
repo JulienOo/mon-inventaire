@@ -118,7 +118,11 @@
       //   // ici
       console.log("Je suis le cliqueur "+taskItemInContext.getAttribute("data-id"));
         e.preventDefault();
+
+        //afficheur du menu à personnaliser !!!
         toggleMenuOn();
+
+        
         positionMenu(e);
       } else {
         taskItemInContext = null;
