@@ -254,7 +254,7 @@
 
       var ligne = parseInt(tableauDataId[0]);
       var ligneRestante = document.getElementById("tasks").childElementCount+1
-      var nombreColonne = document.getElementById("colonnes").childElementCount;
+      var nombreColonne = document.getElementById("head").childElementCount;
 
 
       document.getElementById("task-"+ligne).remove()
