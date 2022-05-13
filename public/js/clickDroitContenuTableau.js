@@ -20,8 +20,10 @@
    */
   function clickInsideElement( e, className ) {
     var el = e.srcElement || e.target;
-    
     if ( el.classList.contains(className) ) {
+
+    console.log("Je sais qui tu es : "+el.getAttribute("data-id"));
+
       return el;
     } else {
       while ( el = el.parentNode ) {
@@ -113,7 +115,8 @@
       taskItemInContext = clickInsideElement( e, taskItemClassName );
 
       if ( taskItemInContext ) {
-        // ici
+      //   // ici
+      console.log("Je suis le cliqueur "+taskItemInContext.getAttribute("data-id"));
         e.preventDefault();
         toggleMenuOn();
         positionMenu(e);
@@ -140,7 +143,7 @@
           toggleMenuOff();
         }
       }
-    }, console.log("this +"+this));
+    });
 
   }
 
