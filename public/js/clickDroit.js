@@ -242,6 +242,29 @@
     else
     {
       taskItemInContext.remove();
+
+      var ligneRestante = document.getElementById("tasks").childElementCount;
+      var ligneSuprime = parseInt(taskItemInContext.getAttribute("data-id"));
+      var ligneModif = ligneSuprime-1;
+      ligneSuprime
+
+      console.log("ligne restante "+ligneRestante);
+      console.log("ligne modif "+ligneModif);
+      console.log("ligne suprimé "+ligneSuprime);
+      // console.log("ligne  "+ligneBis);
+   
+      console.log("entrée for");
+
+      for (var ligneModif, ligneSuprime; ligneModif<ligneRestante; ligneModif++) {
+        console.log("---\nvoici un tour");
+        console.log("ligneModif : "+ligneModif);
+        console.log("ligneSuprime : "+ligneSuprime);
+        console.log(document.getElementById("tasks").children[ligneModif].setAttribute("data-id", ligneSuprime));
+
+      ligneSuprime++;
+      }
+      console.log("sortie for");
+
     }
 
 
