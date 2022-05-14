@@ -22,7 +22,7 @@
     var el = e.srcElement || e.target;
     if ( el.classList.contains(className) ) {
 
-    console.log("Je sais qui tu es : "+el.getAttribute("data-id"));
+    // console.log("Je sais qui tu es : "+el.getAttribute("data-id"));
 
       return el;
     } else {
@@ -85,9 +85,11 @@
   var clickCoordsX;
   var clickCoordsY;
 
-  var menu = document.querySelector("#context-menu");
+  var menu = document.querySelector("#context-menu-contenu");
   var menuItems = menu.querySelectorAll(".context-menu__item");
   var menuState = 0;
+  var menuType;
+  var menuTypeAvant;
   var menuWidth;
   var menuHeight;
   var menuPosition;
@@ -96,6 +98,9 @@
 
   var windowWidth;
   var windowHeight;
+
+  var tableauDataId;
+  var dernierDataId;
 
   /**
    * Initialise our application's code.
@@ -116,11 +121,11 @@
 
       if ( taskItemInContext ) {
       //   // ici
-      console.log("Je suis le cliqueur "+taskItemInContext.getAttribute("data-id"));
+      // console.log("Je suis le cliqueur "+taskItemInContext.getAttribute("data-id"));
         e.preventDefault();
 
         //afficheur du menu à personnaliser !!!
-        toggleMenuOn();
+        toggleMenuOn(taskItemInContext.getAttribute("data-id"));
 
         
         positionMenu(e);
@@ -174,11 +179,41 @@
   /**
    * Turns the custom context menu on.
    */
-  function toggleMenuOn() {
-    if ( menuState !== 1 ) {
-      menuState = 1;
-      menu.classList.add( contextMenuActive );
+  function toggleMenuOn(dataId) {
+
+    
+      // console.log("taille du tableau : "+tableauDataId.length);
+      // console.log("entrée boucle");
+      // for (var i=0; tableauDataId[i] != undefined; i++) 
+      // {
+      //   console.log(tableauDataId[i]);
+      // }
+      // console.log("sortie boucle");
+
+ tableauDataId = dataId.split("-");
+      switch (tableauDataId.length) {
+        case 1:
+          menu = document.querySelector("#context-menu-head");
+          menuType = "head";
+          break;
+        case 2:
+          menu = document.querySelector("#context-menu-contenu");
+          menuType = "contenu";
+          break;    
     }
+menu.classList.add( contextMenuActive );
+
+if (menuType == "head" && menuTypeAvant == "contenu")
+{
+  document.querySelector("#context-menu-contenu").classList.remove( contextMenuActive );
+} else if (menuType == "contenu" && menuTypeAvant == "head") {
+  document.querySelector("#context-menu-head").classList.remove( contextMenuActive );
+}
+
+    menuState = 1;
+    menuTypeAvant = menuType;
+    dernierDataId = dataId;
+
   }
 
   /**
@@ -187,6 +222,7 @@
   function toggleMenuOff() {
     if ( menuState !== 0 ) {
       menuState = 0;
+
       menu.classList.remove( contextMenuActive );
     }
   }
@@ -233,12 +269,12 @@
 
       console.log(taskItemInContext);
 
-    if (link.getAttribute("data-action") == "View")
+    if (link.getAttribute("data-action") == "ViewContenu")
     {
       console.log("Redirection vers la page demandée");
       window.location.href=taskItemInContext.getAttribute("href")
     } 
-    else if (link.getAttribute("data-action") == "Edit") 
+    else if (link.getAttribute("data-action") == "EditContenu") 
     {
       console.log("modification de la catégorie demandée");
       // taskItemInContext.setAttribute("style", "pointer-events:none;");;
@@ -251,7 +287,7 @@
 
 
     }
-    else
+    else if (link.getAttribute("data-action") == "DeleteContenu")
     {
       console.log(taskItemInContext.getAttribute("data-id").split("-"));
       const tableauDataId = taskItemInContext.getAttribute("data-id").split("-");
