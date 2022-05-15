@@ -23,3 +23,28 @@ function validationEdition(dataId)
 	console.log(value);
 
 }
+
+
+  	var div, img;
+ window.onload = function () {
+  	for (var i = 0; categorie.total[i] !== undefined; i++) 
+  	{
+			div = document.createElement('div');
+	    div.setAttribute("class", "cube task");
+	    div.setAttribute("href", categorie.total[i]["url"]);
+	    div.setAttribute("data-id", tasks.childElementCount+1);
+	    div.innerHTML = categorie.total[i]["nom"]
+	    tasks.appendChild(div);
+  	}
+
+  		div = document.createElement('div');
+	    div.setAttribute("id", "creation");
+	    div.setAttribute("class", "cube ajouterCategorie");
+	    div.setAttribute("href", "#");
+	    tasks.appendChild(div);
+
+	    img = document.createElement('img')
+	    img.setAttribute("src", "https://www.svgrepo.com/show/152121/plus.svg")
+	    img.setAttribute("onclick", "creationCategorie()");
+	    creation.appendChild(img);
+}
