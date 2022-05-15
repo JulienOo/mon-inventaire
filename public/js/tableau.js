@@ -73,9 +73,8 @@ var value, placeholder;
 
 function creationLigne()
 {
-  // alert("création élément !");
 
-  tableau = document.getElementById("keywords");
+
   contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
       
     
