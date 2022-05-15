@@ -165,7 +165,7 @@ function creationLigne()
     for (var a=1; a < nombreLigne; a++) 
     {
 
-      head = document.getElementById("tasks").children[b];
+      tasksChildren = document.getElementById("tasks").children[b];
       taille = document.getElementById("tasks").children[b].childElementCount+1;
       console.log("tour numéro : "+nombreLigne);
       document.getElementById("tasks");
@@ -174,7 +174,7 @@ function creationLigne()
       td.setAttribute("class", "task");
       td.setAttribute("data-id", a+"-"+taille);
       td.innerHTML = "vide"
-      head.appendChild(td);
+      tasksChildren.appendChild(td);
 
       b++;
     }
