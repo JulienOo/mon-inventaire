@@ -1,4 +1,36 @@
-function validationEditionTableau(dataId)
+function validationEditionTableauHead(dataId)
+{
+  console.log(typeof dataId);
+
+  var ligne = parseInt(dataId)-1;
+  // if (ligne != 0)
+  // {
+
+  value = document.getElementById("head").children[ligne].children[0].value
+
+  placeholder = document.getElementById("head").children[ligne].children[0].placeholder;
+  // }
+  // else
+  // {
+  //   console.log("OK")
+  // }
+
+  if (value === placeholder) {
+    console.log("Merci de modifier la valeur.");
+    document.getElementById("head").children[ligne].children[colonne].innerHTML = value;
+  } else if (value == "") {
+    alert("Merci d'entrer une valeur")
+  } else {
+  document.getElementById("head").children[ligne].innerHTML = value;
+
+
+}
+
+  // console.log(value);
+
+}
+
+function validationEditionTableauContenu(dataId)
 {
   console.log(typeof dataId);
 
@@ -41,9 +73,8 @@ var value, placeholder;
 
 function creationLigne()
 {
-  // alert("création élément !");
 
-  tableau = document.getElementById("keywords");
+
   contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
       
     
@@ -116,12 +147,15 @@ function creationLigne()
   function creationColonne()
   {
 
-    parent = document.getElementById("head");
+    // parent = document.getElementById("head");
+
 
     th = document.createElement('th');
+    th.setAttribute("class", "task");
     th.setAttribute("type", "string");
+    th.setAttribute("data-id", head.childElementCount+1);
     th.innerHTML = "nouvelle colonne"
-    parent.appendChild(th);
+    head.appendChild(th);
 
 
     nombreLigne = document.getElementById("tasks").childElementCount+1;
@@ -130,7 +164,7 @@ function creationLigne()
     for (var a=1; a < nombreLigne; a++) 
     {
 
-      parent = document.getElementById("tasks").children[b];
+      tasksChildren = document.getElementById("tasks").children[b];
       taille = document.getElementById("tasks").children[b].childElementCount+1;
       console.log("tour numéro : "+nombreLigne);
       document.getElementById("tasks");
@@ -139,7 +173,7 @@ function creationLigne()
       td.setAttribute("class", "task");
       td.setAttribute("data-id", a+"-"+taille);
       td.innerHTML = "vide"
-      parent.appendChild(td);
+      tasksChildren.appendChild(td);
 
       b++;
     }
