@@ -115,7 +115,7 @@ function creationLigne()
 
       // console.log("double");
 
-      valeur = "0.0"
+      valeur = "vide"
     }
 
 
@@ -187,7 +187,7 @@ function creationLigne()
 
 
     var th, tr, td, iBis, aBis;
-    
+
  window.onload = function () {
     for (var i = 0; tableau.head[i] !== undefined; i++) 
     {
