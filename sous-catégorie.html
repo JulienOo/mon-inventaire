@@ -15,12 +15,6 @@
 
 	</nav>
 	<section id="tasks">
-		<div class="cube task" href="https://www.google.fr" data-id="1">Câbles</div>
-		<div class="cube task" href="https://www.bing.fr" data-id="2">Machines</div>
-		<div class="cube task" href="https://www.bing.fr" data-id="3">Consoles</div>
-		<div class="cube task" href="https://www.google.fr" data-id="4">-----</div>
-		<div class="cube task" href="https://www.google.fr" data-id="5">Autres</div>
-		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationCategorie()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
 	</section>
 	<nav>
 		
@@ -43,6 +37,45 @@
     </ul>
   </nav>
 
+
+<script type="text/javascript">
+  	const categorie = { "total": [
+  			{"nom":"Câbles", "url": "https://www.bing.fr"},
+  			{"nom":"Machines", "url": "https://www.w3schools.com"},
+  			{"nom":"Consoles", "url": "https://www.doctolib.fr"},
+  			{"nom":"-----", "url": "https://www.google.fr"},
+  			{"nom":"Autres", "url": "https://www.google.fr"}
+  ]
+  	};
+
+  	// console.log(Object.keys(categorie["total"][0]));
+  	console.log(categorie.total.length);
+  	console.log(categorie.total[0]["nom"]);
+
+  	var div, img;
+
+  	for (var i = 0; categorie.total[i] !== undefined; i++) 
+  	{
+			div = document.createElement('div');
+	    div.setAttribute("class", "cube task");
+	    div.setAttribute("href", categorie.total[i]["url"]);
+	    div.setAttribute("data-id", tasks.childElementCount+1);
+	    div.innerHTML = categorie.total[i]["nom"]
+	    tasks.appendChild(div);
+  	}
+
+  		div = document.createElement('div');
+	    div.setAttribute("id", "creation");
+	    div.setAttribute("class", "cube ajouterCategorie");
+	    div.setAttribute("href", "#");
+	    tasks.appendChild(div);
+
+	    img = document.createElement('img')
+	    img.setAttribute("src", "https://www.svgrepo.com/show/152121/plus.svg")
+	    img.setAttribute("onclick", "creationCategorie()");
+	    creation.appendChild(img);
+
+  </script>
 
 	<script type="text/javascript" src="public/js/categories.js"></script>
 

@@ -18,28 +18,9 @@
 	<table id="keywords" cellspacing="0" cellpadding="0">
     <thead id="task-0">
       <tr id="head">
-        <th class="task" data-id="1" type="string">Keywords</th>
-        <th class="task" data-id="2" type="double">Impressions</th>
-        <th class="task" data-id="3" type="int">Clicks</th>
-        <th class="task" data-id="4" type="int">CTR</th>
-        <th class="task" data-id="5" type="double">Rank</th>
       </tr>
     </thead>
     <tbody id="tasks">
-      <tr id="task-1">
-        <td class="task" data-id="1-1" class="lalign">silly tshirts</td>
-        <td class="task" data-id="1-2">6,000</td>
-        <td class="task" data-id="1-3">110</td>
-        <td class="task" data-id="1-4">1</td>
-        <td class="task" data-id="1-5">22.2</td>
-      </tr>
-      <tr id="task-2">
-        <td class="task" data-id="2-1" class="lalign">desktop workspace photos</td>
-        <td class="task" data-id="2-2" >2,200</td>
-        <td class="task" data-id="2-3" >500</td>
-        <td class="task" data-id="2-4" >22</td>
-        <td class="task" data-id="2-5" >8.9</td>
-      </tr>
     </tbody>
   </table>
 	</section>
@@ -90,7 +71,65 @@
     </ul>
   </nav>
 
+ <script type="text/javascript">
+    const tableau = { "head": [
+        {"nom":"Keywords", "type": "string"},
+        {"nom":"Impressions", "type": "double"},
+        {"nom":"Clicks", "type": "int"},
+        {"nom":"CTR", "type": "int"},
+        {"nom":"Rank", "type": "double"}
+  ], contenu: [
+    [
+        {"valeur":"silly tshirts"},
+        {"valeur":"6.000"},
+        {"valeur":"110"},
+        {"valeur":"1"},
+        {"valeur":"22.2"}
+    ],
+    [
+        {"valeur":"desktop workspace photos"},
+        {"valeur":"2.200"},
+        {"valeur":"500"},
+        {"valeur":"22"},
+        {"valeur":"8.9"}
+    ]
 
+  ]
+    };
+
+    var th, tr, td, iBis, aBis;
+
+    for (var i = 0; tableau.head[i] !== undefined; i++) 
+    {
+      th = document.createElement('th');
+      th.setAttribute("class", "task");
+      th.setAttribute("data-id", head.childElementCount+1);
+      th.innerHTML = tableau.head[i]["nom"]
+      head.appendChild(th);
+    }
+
+    for (var i=0; tableau.contenu[i] != undefined; i++) //boucle pour les lignes
+    {
+      tr = document.createElement('tr');
+      id = parseInt(tasks.childElementCount)+1;
+      tr.setAttribute("id", "task-"+id);
+      // tr.innerHTML = tableau.head[i]["nom"];
+      tasks.appendChild(tr);
+
+      iBis=i+1;
+      for (var a=0; tableau.contenu[i][a] != undefined; a++) //boucle pour les cellule
+      {
+      aBis = a+1;
+      td = document.createElement('td');
+      id = parseInt(tasks.childElementCount)+1;
+      td.setAttribute("class", "task");
+      td.setAttribute("data-id", iBis+"-"+aBis);
+      td.innerHTML = tableau.contenu[i][a]["valeur"];
+      tr.appendChild(td);
+      }
+    }
+
+  </script>
 	<script type="text/javascript" src="public/js/clickDroitContenuTableau.js"></script>
 	<script type="text/javascript" src="public/js/tableau.js"></script>
 
