@@ -1,7 +1,7 @@
 function creationCategorie() {
 	number = document.getElementById("tasks").childElementCount;
 
-	document.getElementById("creation").outerHTML = '<div class="cube task" href="https://www.google.fr" data-id="'+number+'">Nouvelle catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+	document.getElementById("creation").outerHTML = '<a class="cube task" href="/Nouvelle catégorie '+number+'" data-id="'+number+'">Nouvelle catégorie '+number+'</a>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
 }
 
 function validationEdition(dataId)
@@ -27,16 +27,34 @@ function validationEdition(dataId)
 
   	var div, img;
  window.onload = function () {
-  	for (var i = 0; categorie.total[i] !== undefined; i++) 
-  	{
-			div = document.createElement('div');
-	    div.setAttribute("class", "cube task");
-	    div.setAttribute("href", categorie.total[i]["url"]);
-	    div.setAttribute("data-id", tasks.childElementCount+1);
-	    div.innerHTML = categorie.total[i]["nom"]
-	    tasks.appendChild(div);
-  	}
 
+ 	if (typeof categorie !==  "undefined") 
+ 	{
+	  	for (var i = 0; categorie.total[i] !== undefined; i++) 
+	  	{
+			div = document.createElement('a');
+		    div.setAttribute("class", "cube task");
+		    div.setAttribute("href", categorie.total[i]["nom"]);
+		    div.setAttribute("data-id", tasks.childElementCount+1);
+		    div.innerHTML = categorie.total[i]["nom"]
+		    tasks.appendChild(div);
+	  	}
+	}
+	else 
+	{
+	categorie =  window.location.href;
+	categorie = categorie.split("/");
+
+  	  for (var i = 0; sousCategorie.total[i] !== undefined; i++) 
+	  {
+			div = document.createElement('a');
+		    div.setAttribute("class", "cube task");
+		    div.setAttribute("href", categorie[3]+"/"+sousCategorie.total[i]["nom"]);
+		    div.setAttribute("data-id", tasks.childElementCount+1);
+		    div.innerHTML = sousCategorie.total[i]["nom"]
+		    tasks.appendChild(div);
+	  }
+	}
   		div = document.createElement('div');
 	    div.setAttribute("id", "creation");
 	    div.setAttribute("class", "cube ajouterCategorie");
@@ -47,4 +65,6 @@ function validationEdition(dataId)
 	    img.setAttribute("src", "https://www.svgrepo.com/show/152121/plus.svg")
 	    img.setAttribute("onclick", "creationCategorie()");
 	    creation.appendChild(img);
+
+
 }

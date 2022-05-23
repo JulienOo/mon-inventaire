@@ -3,13 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>listes des catégories</title>
+	<title><?= $titre ?></title>
 	<link href="public/css/styles.css" rel="stylesheet">
 	<link href="public/css/clickDroit.css" rel="stylesheet">
 </head>
 <body>
 	<header>
-		Catégories
+		<?= $nom ?>
 	</header>
 	<nav>
 
@@ -37,17 +37,11 @@
     </ul>
   </nav>
 
-  <script type="text/javascript">
-  	const categorie = { "total": [
-  			{"nom":"informatique", "url": "https://www.bing.fr"},
-  			{"nom":"vestimentaire", "url": "https://www.w3schools.com"},
-  			{"nom":"médicament", "url": "https://www.doctolib.fr"},
-  			{"nom":"literie", "url": "https://www.google.fr"}
-  ]
-  	};
+<script type="text/javascript">
+<?= $script ?>
 
+</script>
 
-  </script>
 
 	<script type="text/javascript" src="public/js/categories.js"></script>
 
