@@ -1,7 +1,19 @@
 function creationCategorie() {
-	number = document.getElementById("tasks").childElementCount;
 
-	document.getElementById("creation").outerHTML = '<a class="cube task" href="/Nouvelle catégorie '+number+'" data-id="'+number+'">Nouvelle catégorie '+number+'</a>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+	number = document.getElementById("tasks").childElementCount;
+	var categorie =  window.location.href;
+	categorie = categorie.split("/");
+
+	if (document.getElementsByTagName("header")[0].outerText !== "Catégories")
+	{
+		categorie = document.getElementsByTagName("header")[0].outerText;
+	}
+	else
+	{ 
+		categorie = "";
+		console.log(categorie);
+	}
+	document.getElementById("creation").outerHTML = '<a class="cube task" href="'+categorie+'/Nouvelle catégorie '+number+'" data-id="'+number+'">Nouvelle catégorie '+number+'</a>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
 }
 
 function validationEdition(dataId)
