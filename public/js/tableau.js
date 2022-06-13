@@ -5,7 +5,7 @@ function validationEditionTableauHead(dataId)
   var ligne = parseInt(dataId)-1;
   // if (ligne != 0)
   // {
-
+  console.log(dataId);
   value = document.getElementById("head").children[ligne].children[0].value
 
   placeholder = document.getElementById("head").children[ligne].children[0].placeholder;
@@ -194,7 +194,7 @@ function creationLigne()
     {
       th = document.createElement('th');
       th.setAttribute("class", "task");
-      th.setAttribute("data-id", tableau.nom_colonne.childElementCount+1);
+      th.setAttribute("data-id", head.childElementCount+1);
       th.innerHTML = tableau.nom_colonne[i]["nom"]
       head.appendChild(th);
     }
@@ -217,7 +217,7 @@ function creationLigne()
       td = document.createElement('td');
       id = parseInt(tasks.childElementCount)+1;
       td.setAttribute("class", "task");
-      td.setAttribute("data-id", iBis+"-"+aBis);
+      td.setAttribute("data-id", i+"-"+aBis);
       td.innerHTML = tableau.lignes[i][a]["valeur"];
       tr.appendChild(td);
       }
