@@ -3,19 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>catégorie - Informatique</title>
-	<link href="public/css/styles.css" rel="stylesheet">
-	<link href="public/css/clickDroit.css" rel="stylesheet">
+	<title><?= $titre ?></title>
+	<link href="/public/css/styles.css" rel="stylesheet">
+	<link href="/public/css/clickDroit.css" rel="stylesheet">
 </head>
 <body>
 	<header>
-		informatique
+		<?= $nom ?>
 	</header>
 	<nav>
 
 	</nav>
 	<section id="tasks">
-	</section>
+</section>
 	<nav>
 		
 	</nav>
@@ -37,21 +37,14 @@
     </ul>
   </nav>
 
-
 <script type="text/javascript">
-  	const categorie = { "total": [
-  			{"nom":"Câbles", "url": "https://www.bing.fr"},
-  			{"nom":"Machines", "url": "https://www.w3schools.com"},
-  			{"nom":"Consoles", "url": "https://www.doctolib.fr"},
-  			{"nom":"-----", "url": "https://www.google.fr"},
-  			{"nom":"Autres", "url": "https://www.google.fr"}
-  ]
-  	};
+<?= $script ?>
 
-  </script>
+</script>
 
-	<script type="text/javascript" src="public/js/categories.js"></script>
 
-	<script type="text/javascript" src="public/js/clickDroit.js"></script>
+	<script type="text/javascript" src="/public/js/categories.js"></script>
+
+	<script type="text/javascript" src="/public/js/clickDroit.js"></script>
 </body>
 </html>

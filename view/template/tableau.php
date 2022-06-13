@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>catégorie - Informatique</title>
-	<link href="public/css/tableau.css" rel="stylesheet">
-	<link href="public/css/styles.css" rel="stylesheet">
-	<link href="public/css/clickDroit.css" rel="stylesheet">
+	<title><?= $titre ?></title>
+	<link href="/public/css/tableau.css" rel="stylesheet">
+	<link href="/public/css/styles.css" rel="stylesheet">
+	<link href="/public/css/clickDroit.css" rel="stylesheet">
 
 </head>
 <body>
 	<header>
-		informatique - câbles
+		<?= $nom ?>
 	</header>
 
 	<section id="parentCategories tasks">
@@ -72,35 +72,10 @@
   </nav>
 
  <script type="text/javascript">
-    const tableau = { head: [
-        {"nom":"Keywords", "type": "string"},
-        {"nom":"Impressions", "type": "double"},
-        {"nom":"Clicks", "type": "int"},
-        {"nom":"CTR", "type": "int"},
-        {"nom":"Rank", "type": "double"}
-  ], contenu: [
-    [
-        {"valeur":"silly tshirts"},
-        {"valeur":"6.000"},
-        {"valeur":"110"},
-        {"valeur":"1"},
-        {"valeur":"22.2"}
-    ],
-    [
-        {"valeur":"desktop workspace photos"},
-        {"valeur":"2.200"},
-        {"valeur":"500"},
-        {"valeur":"22"},
-        {"valeur":"8.9"}
-    ]
-
-  ]
-    };
-
-
+<?= $script ?>
   </script>
-	<script type="text/javascript" src="public/js/clickDroitContenuTableau.js"></script>
-	<script type="text/javascript" src="public/js/tableau.js"></script>
+	<script type="text/javascript" src="/public/js/clickDroitContenuTableau.js"></script>
+	<script type="text/javascript" src="/public/js/tableau.js"></script>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ function validationEditionTableauHead(dataId)
   var ligne = parseInt(dataId)-1;
   // if (ligne != 0)
   // {
-
+  console.log(dataId);
   value = document.getElementById("head").children[ligne].children[0].value
 
   placeholder = document.getElementById("head").children[ligne].children[0].placeholder;
@@ -115,7 +115,7 @@ function creationLigne()
 
       // console.log("double");
 
-      valeur = "0.0"
+      valeur = "vide"
     }
 
 
@@ -184,3 +184,42 @@ function creationLigne()
 // $(function(){
 //   $('#keywords').tablesorter(); 
 // });
+
+
+    var th, tr, td, iBis, aBis;
+
+ window.onload = function () {
+
+    for (var i = 0; tableau.nom_colonne[i] !== undefined; i++) 
+    {
+      th = document.createElement('th');
+      th.setAttribute("class", "task");
+      th.setAttribute("data-id", head.childElementCount+1);
+      th.innerHTML = tableau.nom_colonne[i]["nom"]
+      head.appendChild(th);
+    }
+
+    for (var i=1; tableau.lignes[i] != undefined; i++) //boucle pour les lignes
+    {
+      tr = document.createElement('tr');
+      id = parseInt(tasks.childElementCount)+1;
+      tr.setAttribute("id", "task-"+id);
+      // tr.innerHTML = tableau.head[i]["nom"];
+      tasks.appendChild(tr);
+      iBis=i+1;
+      for (var a=0; tableau.lignes[i][a] != undefined; a++) //boucle pour les cellule
+      {
+      aBis = a+1;
+
+      console.log("ligne "+i);
+      console.log("colonne "+a);
+
+      td = document.createElement('td');
+      id = parseInt(tasks.childElementCount)+1;
+      td.setAttribute("class", "task");
+      td.setAttribute("data-id", i+"-"+aBis);
+      td.innerHTML = tableau.lignes[i][a]["valeur"];
+      tr.appendChild(td);
+      }
+    }
+}
