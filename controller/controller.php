@@ -23,6 +23,7 @@ function sousCategorie()
 
 	$test = getSousCategories($url[1]);
 
+
 	require_once "view/backend/headSousCategories.php";
 	require_once "view/backend/sousCategories.php";
 	require_once "view/backend/scriptSousCategories.php";
@@ -34,7 +35,15 @@ function sousCategorie()
 
 function produits()
 {
-	echo "voici la listes des produits";
+	$url = explode("/", $_SERVER['REQUEST_URI']);
+
+	$test = getProduit($url[2]);
+
+	require_once "view/backend/headTableau.php";
+	require_once "view/backend/tableau.php";
+	require_once "view/backend/scriptTableau.php";
+
+	require_once "view/template/tableau.php";
 }
 
 

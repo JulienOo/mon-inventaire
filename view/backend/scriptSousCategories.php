@@ -5,4 +5,3 @@
 $script = "const sousCategorie = { 'total': ".$test."};";
 
 
-?>

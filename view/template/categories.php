@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?= $titre ?></title>
-	<link href="public/css/styles.css" rel="stylesheet">
-	<link href="public/css/clickDroit.css" rel="stylesheet">
+	<link href="/public/css/styles.css" rel="stylesheet">
+	<link href="/public/css/clickDroit.css" rel="stylesheet">
 </head>
 <body>
 	<header>
@@ -43,8 +43,8 @@
 </script>
 
 
-	<script type="text/javascript" src="public/js/categories.js"></script>
+	<script type="text/javascript" src="/public/js/categories.js"></script>
 
-	<script type="text/javascript" src="public/js/clickDroit.js"></script>
+	<script type="text/javascript" src="/public/js/clickDroit.js"></script>
 </body>
 </html>
