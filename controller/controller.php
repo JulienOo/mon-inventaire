@@ -17,9 +17,9 @@ function categories() {
 function sousCategorie()
 {
 	// echo "voici les sous-catégories";
-	$url = explode("/", $_SERVER['REQUEST_URI']);
+	$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
-
+	$id = getIdCategorie($url[1]);
 
 	$test = getSousCategories($url[1]);
 
@@ -28,14 +28,14 @@ function sousCategorie()
 	require_once "view/backend/sousCategories.php";
 	require_once "view/backend/scriptSousCategories.php";
 
-	require_once "view/template/categories.php";
+	require_once "view/template/sousCategories.php";
 }
 
 
 
 function produits()
 {
-	$url = explode("/", $_SERVER['REQUEST_URI']);
+	$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
 	$test = getProduit($url[2]);
 
@@ -50,4 +50,37 @@ function produits()
 function monProfil()
 {
 	echo "voici mon profil";
+}
+
+
+
+
+function apiCreationCategorie($req)
+{
+	setCategories(htmlspecialchars($req["nom"]));
+}
+
+function apiEditionCategorie($req)
+{
+	editCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+}
+
+function apiSuppressionCategorie($req)
+{
+	delCategories(htmlspecialchars($req["id"]));
+}
+
+function apiCreationSousCategorie($req)
+{
+	setSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+}
+
+function apiEditionSousCategorie($req)
+{ echo $req["id"];
+	editSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+}
+
+function apiSuppressionSousCategorie($req)
+{
+	delSousCategories(htmlspecialchars($req["id"]));
 }
