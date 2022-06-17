@@ -8,9 +8,7 @@
 	<link href="/public/css/clickDroit.css" rel="stylesheet">
 </head>
 <body>
-	<header>
-		<?= $nom ?>
-	</header>
+	<header id="<?= $id ?>"><?= $nom ?></header>
 	<nav>
 
 	</nav>
@@ -29,10 +27,10 @@
         <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
       </li>
       <li class="context-menu__item">
-        <a href="#" class="context-menu__link" data-action="editCategorie"><i class="fa fa-edit"></i>Modifier</a>
+        <a href="#" class="context-menu__link" data-action="editSousCategorie"><i class="fa fa-edit"></i>Modifier</a>
       </li>
       <li class="context-menu__item">
-        <a href="#" class="context-menu__link" data-action="deleteCategorie"><i class="fa fa-times"></i>Supprimer</a>
+        <a href="#" class="context-menu__link" data-action="deleteSousCategorie"><i class="fa fa-times"></i>Supprimer</a>
       </li>
     </ul>
   </nav>
@@ -44,7 +42,7 @@
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script type="text/javascript" src="/public/js/ajax.js"></script>
-	<script type="text/javascript" src="/public/js/categories.js"></script>
+	<script type="text/javascript" src="/public/js/sousCategories.js"></script>
 
 	<script type="text/javascript" src="/public/js/clickDroit.js"></script>
 </body>

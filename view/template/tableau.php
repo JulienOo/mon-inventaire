@@ -10,9 +10,7 @@
 
 </head>
 <body>
-	<header>
-		<?= $nom ?>
-	</header>
+	<header id="<?= $id ?>"><?= $nom ?></header>
 
 	<section id="parentCategories tasks">
 	<table id="keywords" cellspacing="0" cellpadding="0">
@@ -74,6 +72,10 @@
  <script type="text/javascript">
 <?= $script ?>
   </script>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script type="text/javascript" src="/public/js/ajax.js"></script>
+
 	<script type="text/javascript" src="/public/js/clickDroitContenuTableau.js"></script>
 	<script type="text/javascript" src="/public/js/tableau.js"></script>
 

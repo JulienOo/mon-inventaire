@@ -1,11 +1,12 @@
+
+
 function validationEditionTableauHead(dataId)
 {
-  console.log(typeof dataId);
 
   var ligne = parseInt(dataId)-1;
   // if (ligne != 0)
   // {
-  console.log(dataId);
+  console.log("dataid : "+dataId+"- ligne : "+ligne);
   value = document.getElementById("head").children[ligne].children[0].value
 
   placeholder = document.getElementById("head").children[ligne].children[0].placeholder;
@@ -16,12 +17,13 @@ function validationEditionTableauHead(dataId)
   // }
 
   if (value === placeholder) {
-    console.log("Merci de modifier la valeur.");
-    document.getElementById("head").children[ligne].children[colonne].innerHTML = value;
+    alert("Merci de modifier la valeur.");
+    // document.getElementById("head").children[ligne].children[colonne].innerHTML = value;
   } else if (value == "") {
     alert("Merci d'entrer une valeur")
   } else {
-  document.getElementById("head").children[ligne].innerHTML = value;
+  console.log(document.getElementById("head").children[ligne].getAttribute("id"));
+    editionColonnesNomAJAX(document.getElementById("head").children[ligne].getAttribute("id"), value, dataId)
 
 
 }
@@ -30,11 +32,10 @@ function validationEditionTableauHead(dataId)
 
 }
 
-function validationEditionTableauContenu(dataId)
+function validationEditionTableauContenu(dataId, balise)
 {
   console.log(typeof dataId);
 
-console.log("tt"+dataId);
 
 console.log(dataId.split("-"));
 const tableauDataId = dataId.split("-");
@@ -62,7 +63,7 @@ var value, placeholder;
   } else if (value == "") {
     alert("Merci d'entrer une valeur")
   } else {
-  document.getElementById("tasks").children[ligne].children[colonne].innerHTML = value;
+    editionCelluleAJAX(balise, value, dataId)
 
 
 }
@@ -73,112 +74,14 @@ var value, placeholder;
 
 function creationLigne()
 {
-
-
-  contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
-      
-    
-
-    nombreColonne = document.getElementById("head").childElementCount;
-    
-
-    console.log("nombre colonnes :"+nombreColonne);
-
-    parent = document.getElementById("tasks");
-
-    nombreLigne = document.getElementById("tasks").childElementCount+1;
-
-    tr = document.createElement('tr');
-    tr.setAttribute("id", "task-"+nombreLigne);
-    parent.appendChild(tr);
-
-
-    var b=1;
-    for (var a = 0; nombreColonne > a; a++) 
-    {
-
-      // console.log("bonsoir "+a);
-    type = document.getElementById("head").children[a].getAttribute("type");
-    // console.log(type);
-
-    if (type == "string") {
-
-      // console.log("string");
-
-      valeur = "vide";
-    } else if (type == "int") {
-
-      // console.log("int");
-
-      valeur = "0";
-    } else {
-
-      // console.log("double");
-
-      valeur = "vide"
-    }
-
-
-    td = document.createElement('td');
-    td.setAttribute("class", "task");
-    td.setAttribute("data-id", nombreLigne+"-"+b);
-    tr.appendChild(td);
-
-
-    var tdText = document.createTextNode(valeur);
-    td.appendChild(tdText);
-
-    b++;
-    }
-
-    // var tr = document.createElement('tr');
-    // parent.appendChild(tr);
-     
-    // var td = document.createElement('td');
-    // tr.appendChild(td);
-
-
-    // var tdText = document.createTextNode(value);
-    // td.appendChild(tdText);
-      
-  }
+  creationLigneAJAX();
+}
 
 
   function creationColonne()
   {
-
     // parent = document.getElementById("head");
-
-
-    th = document.createElement('th');
-    th.setAttribute("class", "task");
-    th.setAttribute("type", "string");
-    th.setAttribute("data-id", head.childElementCount+1);
-    th.innerHTML = "nouvelle colonne"
-    head.appendChild(th);
-
-
-    nombreLigne = document.getElementById("tasks").childElementCount+1;
-
-    var b=0;
-    for (var a=1; a < nombreLigne; a++) 
-    {
-
-      tasksChildren = document.getElementById("tasks").children[b];
-      taille = document.getElementById("tasks").children[b].childElementCount+1;
-      console.log("tour numéro : "+nombreLigne);
-      document.getElementById("tasks");
-
-      var td = document.createElement('td');
-      td.setAttribute("class", "task");
-      td.setAttribute("data-id", a+"-"+taille);
-      td.innerHTML = "vide"
-      tasksChildren.appendChild(td);
-
-      b++;
-    }
-
-
+    creationColonneAJAX();
   }
 
 // $(function(){
@@ -190,15 +93,21 @@ function creationLigne()
 
  window.onload = function () {
 
+if (tableau.nom_colonne.length !== 0)
+{
     for (var i = 0; tableau.nom_colonne[i] !== undefined; i++) 
     {
       th = document.createElement('th');
       th.setAttribute("class", "task");
+      th.setAttribute("type", tableau.nom_colonne[i]["format"]);
       th.setAttribute("data-id", head.childElementCount+1);
+      th.setAttribute("id", tableau.nom_colonne[i]["id"]);
       th.innerHTML = tableau.nom_colonne[i]["nom"]
       head.appendChild(th);
     }
 
+if (tableau.lignes != undefined)
+{
     for (var i=1; tableau.lignes[i] != undefined; i++) //boucle pour les lignes
     {
       tr = document.createElement('tr');
@@ -218,8 +127,11 @@ function creationLigne()
       id = parseInt(tasks.childElementCount)+1;
       td.setAttribute("class", "task");
       td.setAttribute("data-id", i+"-"+aBis);
+      td.setAttribute("id", tableau.lignes[i][a]["id"]);
       td.innerHTML = tableau.lignes[i][a]["valeur"];
       tr.appendChild(td);
       }
     }
+  }
+  }
 }

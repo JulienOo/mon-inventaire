@@ -216,6 +216,8 @@
    * 
    * @param {HTMLElement} link The link that was clicked
    */
+   var dataId;
+
   function menuItemListener( link ) {
     console.log( "Task ID - " + taskItemInContext.getAttribute("data-id") + ", Task action - " + link.getAttribute("data-action"));
     toggleMenuOff();
@@ -228,43 +230,35 @@
       console.log("Redirection vers la page demandée");
       window.location.href=taskItemInContext.getAttribute("href")
     } 
-    else if (link.getAttribute("data-action") == "Edit") 
+    else if (link.getAttribute("data-action") == "editCategorie") 
     {
       console.log("modification de la catégorie demandée");
       // taskItemInContext.setAttribute("style", "pointer-events:none;");;
       // taskItemInContext.removeAttribute("href");
       console.log("content : "+content);
 
-      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+")'>valider</button>"
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+", "+taskItemInContext.getAttribute("id")+")'>valider</button>"
+
+
+    }
+    else if (link.getAttribute("data-action") == "deleteCategorie")
+    {
+      suppressionCategorieAJAX(taskItemInContext);
+    }
+    else if (link.getAttribute("data-action") == "editSousCategorie") 
+    {
+      console.log("modification de la SOUS catégorie demandée");
+      // taskItemInContext.setAttribute("style", "pointer-events:none;");;
+      // taskItemInContext.removeAttribute("href");
+      console.log("content : "+content);
+
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+", "+taskItemInContext.getAttribute("id")+")'>valider</button>"
 
 
     }
     else
     {
-      taskItemInContext.remove();
-
-      var ligneRestante = document.getElementById("tasks").childElementCount;
-      var ligneSuprime = parseInt(taskItemInContext.getAttribute("data-id"));
-      var ligneModif = ligneSuprime-1;
-      ligneSuprime
-
-      console.log("ligne restante "+ligneRestante);
-      console.log("ligne modif "+ligneModif);
-      console.log("ligne suprimé "+ligneSuprime);
-      // console.log("ligne  "+ligneBis);
-   
-      console.log("entrée for");
-
-      for (var ligneModif, ligneSuprime; ligneModif<ligneRestante; ligneModif++) {
-        console.log("---\nvoici un tour");
-        console.log("ligneModif : "+ligneModif);
-        console.log("ligneSuprime : "+ligneSuprime);
-        console.log(document.getElementById("tasks").children[ligneModif].setAttribute("data-id", ligneSuprime));
-
-      ligneSuprime++;
-      }
-      console.log("sortie for");
-
+      suppressionSousCategorieAJAX(taskItemInContext);
     }
 
 

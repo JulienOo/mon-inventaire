@@ -1,4 +1,4 @@
-function creationCategorie() {
+function creationSousCategorie() {
 
 	number = document.getElementById("tasks").childElementCount;
 	var categorie =  window.location.href;
@@ -13,7 +13,7 @@ function creationCategorie() {
 		categorie = "";
 		console.log(categorie);
 	}
-	creationCategorieAJAX();
+	creationSousCategorieAJAX();
 
 }
 
@@ -36,7 +36,7 @@ function validationEdition(dataId, id)
 
 	console.log("dataIds "+dataId);
 
-	editionCategorieAJAX(id, value, dataId)
+	editionSousCategorieAJAX(id, value, dataId)
 }
 	// console.log(value);
 
@@ -46,29 +46,29 @@ function validationEdition(dataId, id)
   	var div, img;
  window.onload = function () {
 
- 	if (typeof categorie !==  "undefined") 
+ 	if (typeof sousCategorie !==  "undefined") 
  	{
-	  	for (var i = 0; categorie.total[i] !== undefined; i++) 
+	  	for (var i = 0; sousCategorie.total[i] !== undefined; i++) 
 	  	{
 			div = document.createElement('div');
 		    div.setAttribute("class", "cube task");
-		    div.setAttribute("href", categorie.total[i]["nom"]);
-		    div.setAttribute("id", categorie.total[i]["id"]);
+		    div.setAttribute("href", document.body.children[0].innerHTML+"/"+sousCategorie.total[i]["nom"]);
+		    div.setAttribute("id", sousCategorie.total[i]["id"]);
 		    div.setAttribute("data-id", tasks.childElementCount+1);
-		    div.innerHTML = categorie.total[i]["nom"]
+		    div.innerHTML = sousCategorie.total[i]["nom"]
 		    tasks.appendChild(div);
 	  	}
 	}
 	else 
 	{
-	categorie =  window.location.href;
-	categorie = categorie.split("/");
+	sousCategorie =  window.location.href;
+	sousCategorie = sousCategorie.split("/");
 
   	  for (var i = 0; sousCategorie.total[i] !== undefined; i++) 
 	  {
 			div = document.createElement('div');
 		    div.setAttribute("class", "cube task");
-		    div.setAttribute("href", categorie[3]+"/"+sousCategorie.total[i]["nom"]);
+		    div.setAttribute("href", document.body.children[0].innerHTML+"/"+sousCategorie.total[i]["nom"]);
 		    div.setAttribute("data-id", tasks.childElementCount+1);
 		    div.innerHTML = sousCategorie.total[i]["nom"]
 		    tasks.appendChild(div);
@@ -82,7 +82,7 @@ function validationEdition(dataId, id)
 
 	    img = document.createElement('img')
 	    img.setAttribute("src", "https://www.svgrepo.com/show/152121/plus.svg")
-	    img.setAttribute("onclick", "creationCategorie()");
+	    img.setAttribute("onclick", "creationSousCategorie()");
 	    creation.appendChild(img);
 
 
