@@ -276,7 +276,14 @@ function setColonnes($idSousCategorie, $nom)
 	$req->execute();
 
 	$nombreColonne = $req->fetchAll();
-	$nombreColonne = $nombreColonne[0][0]+1;
+	if (isset($nombreColonne[0][0]))
+	{
+			$nombreColonne = $nombreColonne[0][0]+1;
+	}
+	else
+	{
+		$nombreColonne = 0;
+	}
 
 $sql = "INSERT INTO colonnes ( idSousCategorie, nomColonne, format, ordre ) VALUES ( ?, ?, ?, ? )";
 $bdd->prepare($sql)->execute([$idSousCategorie, $nom, "string", $nombreColonne]);
