@@ -283,101 +283,19 @@ if (menuType == "head" && menuTypeAvant == "contenu")
       console.log("content : "+taskItemInContext.getAttribute("data-id"));
       console.log(typeof taskItemInContext.getAttribute("data-id"))
       console.log(taskItemInContext);
-      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEditionTableauContenu(\""+taskItemInContext.getAttribute("data-id")+"\")'>valider</button>"
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEditionTableauContenu(\""+taskItemInContext.getAttribute("data-id")+"\",\""+taskItemInContext.getAttribute("id")+"\")\'>valider</button>"
 
 
     }
     else if (link.getAttribute("data-action") == "DeleteContenu")
     {
-      console.log(taskItemInContext.getAttribute("data-id").split("-"));
-      const tableauDataId = taskItemInContext.getAttribute("data-id").split("-");
+      suppressionLigneAJAX(taskItemInContext);
 
-
-
-      var ligne = parseInt(tableauDataId[0]);
-      var ligneRestante = document.getElementById("tasks").childElementCount+1
-      var nombreColonne = document.getElementById("head").childElementCount;
-
-
-      document.getElementById("task-"+ligne).remove()
-
-
-
-      console.log("nombre des lignes total restantes : "+ligneRestante);
-      console.log("numero de la ligne suprimé : "+ligne);
-      console.log("nombre de colonnes : "+nombreColonne);
-
-      var ligneBis=ligne++;
-      while (ligne < ligneRestante)
-      {
-        console.log("1")
-        console.log(ligneBis);
-        console.log(ligne);
-        console.log("1")
-
-        //console.log(document.getElementById("task-"+ligne));
-
-        var etage = document.getElementById("task-"+ligne)
-        console.log(etage);
-        var b=1;
-        for (var i = 0; i < nombreColonne; i++) 
-        {
-          etage.children[i].setAttribute("data-id", ligneBis+"-"+b);
-
-          b++;
-        }
-        document.getElementById("task-"+ligne).setAttribute("id", "task-"+ligneBis);
-        console.log(ligne);
-
-        ligneBis++;
-        ligne++;
-      }
     } else if (link.getAttribute("data-action") == "EditHead") {
       taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEditionTableauHead(\""+taskItemInContext.getAttribute("data-id")+"\")'>valider</button>"
     } else if (link.getAttribute("data-action") == "DeleteHead") {
-      console.log("Demande de suppression colonne");
 
-      var colonne = parseInt(taskItemInContext.getAttribute("data-id"))-1;
-      var nombreColonne = document.getElementById("head").childElementCount-1;
-      var nombreLigne = document.getElementById("tasks").childElementCount;
-
-      taskItemInContext.remove(); //suppression de la celulle HEAD
-
-
-
-      console.log("Voici le nombre de colonnes présente actuellement : "+nombreColonne);
-      console.log("Voici le nombre de lignes présente actuellement : "+nombreLigne);
-      console.log("Voici la colonne supprimé : "+colonne);
-
-      for (var i=0; i<nombreLigne ; i++)
-      {
-        document.getElementById("tasks").children[i].children[colonne].remove() //suppression des cellule contenu
-
-        // for (var a=colonne; colonne<nombreColonne; a++)
-        // {
-        //     document.getElementById("tasks").children[i].children[colonne].setAttribute("data-id", "ppp");
-        // }
-
-      }
-
-    tableauDataId = taskItemInContext.getAttribute("data-id").split("-");
-    for (var i=colonne; i<nombreColonne; i++)
-    {
-      //ici
-      console.log("voici une boucle");
-
-      head.children[i].setAttribute("data-id", i+1);
-      for (var a=0; a<nombreLigne; a++)
-      {
-      var tab = tasks.children[a].children[i].getAttribute("data-id").split("-");
-      var nouvelleColonne = parseInt(tab[1])-1
-      var nouveauDataId = tab[0]+"-"+nouvelleColonne;
-
-      console.log(nouveauDataId);
-      tasks.children[a].children[i].setAttribute("data-id", nouveauDataId);
-      }
-    }
-
+      suppressionColonneAJAX(taskItemInContext);
 
 
     }

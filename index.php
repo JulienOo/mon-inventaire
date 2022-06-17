@@ -13,8 +13,11 @@ $url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
 // print_r($url);
 
-
-if (empty($url[1])) { //page qui affiche toutes les catégories
+if ($url[1] == "erreur-404")
+{
+	echo "erreur 404";
+}
+elseif (empty($url[1])) { //page qui affiche toutes les catégories
 	categories();
 }
 elseif ($url[1] == "mon-compte" AND !isset($url[2]) OR empty($url[2]) AND $url[1] == "mon-compte")
@@ -63,9 +66,62 @@ elseif ($url[1] == "api")
 				echo json_encode("Une erreur est survenue");
 			}
 		} 
-		elseif ($url[2] == "tableau")
+		elseif ($url[2] == "colonne" AND isset($url[3]))
 		{
+			if ($url[3] == "creation")
+			{ 
+				apiCreationColonne($_POST);
+			}
+			elseif ($url[3] == "edition" AND isset($url[4]))
+			{
+				if ($url[4] == "nom")
+				{
+					apiEditionColonneNom($_POST);
+				}
+				else
+				{
+					header("Location: /erreur-404");
+				}
+			}
+			elseif ($url[3] == "suppression")
+			{
+				apiSuppressionColonne($_POST);
+			}
+			else
+			{ 
+				header("Location: /erreur-404");
+			}
+		}
+		elseif ($url[2] == "ligne" AND isset($url[3]))
+		{
+			if ($url[3] == "creation")
+			{
+				apiCreationLigne($_POST);
+			}
+			elseif ($url[3] == "suppression")
+			{
+				apiSuppressionLigne($_POST);
+			}
+			else
+			{ 
+				header("Location: /erreur-404");
+			}
+		}
+		elseif ($url[2] == "cellule" AND isset($url[3]))
+		{
+			if ($url[3] == "edition")
+			{
+				apiEditionCellule($_POST);
+			}
+			else
+			{ 
+				header("Location: /erreur-404");
+			}
 
+		}
+		else
+		{ 
+			header("Location: /erreur-404");
 		}
 	}
 	else
@@ -73,9 +129,26 @@ elseif ($url[1] == "api")
 		echo "erreur";
 	}
 }
-elseif (isset($url[1]) AND !isset($url[2]) OR empty($url[2]) && $url[1] != "public") { //page d'une catégorie qui affiche les sous-catégories
-	sousCategorie();
+elseif (isset($url[1]) AND !isset($url[2]) OR empty($url[2]) && $url[1] != "public") 
+{ //page d'une catégorie qui affiche les sous-catégories
+	if (getIdCategorie($url[1]) !== 0)
+	{
+		sousCategorie();
+	}
+	else
+	{
+		header("Location: /erreur-404");
+	}
 } 
 else {
- 	produits();
+	if (getIdCategorie($url[1]) !== 0 AND getIdSousCategorie($url[2]) !== 0)
+			{
+				 produits();
+			}
+			else
+			{
+				header("Location: /erreur-404");
+			}
  } 
+
+

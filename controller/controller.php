@@ -37,6 +37,8 @@ function produits()
 {
 	$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
+	$id = getIdSousCategorie($url[2]);
+
 	$test = getProduit($url[2]);
 
 	require_once "view/backend/headTableau.php";
@@ -76,11 +78,42 @@ function apiCreationSousCategorie($req)
 }
 
 function apiEditionSousCategorie($req)
-{ echo $req["id"];
+{ 
 	editSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
 
 function apiSuppressionSousCategorie($req)
 {
 	delSousCategories(htmlspecialchars($req["id"]));
+}
+
+function apiCreationColonne($req)
+{
+	setColonnes(htmlspecialchars($req["idSousColonne"]), htmlspecialchars($req["nom"]));
+}
+
+function apiEditionColonneNom($req)
+{ 
+	editColonnesNom(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+}
+
+function apiSuppressionColonne($req)
+{
+	delColonnes(htmlspecialchars($req["id"]));
+}
+
+function apiCreationLigne($req)
+{ 
+	setLignes($req["idSousCategorie"]);
+}
+
+function apiSuppressionLigne($req)
+{
+	delLignes(htmlspecialchars($req["id"]));
+}
+
+function apiEditionCellule($req)
+{ 
+	// print_r($req);
+	editCellules(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
