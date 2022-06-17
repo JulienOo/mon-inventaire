@@ -8,7 +8,7 @@ function creationCategorieAJAX(){
   let request =
       $.ajax({
         type: "POST", 
-        url: "api/categorie/creation",
+        url: "/api/categorie/creation",
         data:Datas,
         dataType: 'json',
         timeout: 120000, //2 Minutes
@@ -56,7 +56,7 @@ function editionCategorieAJAX(id, valeur, dataId){
   let request =
       $.ajax({
         type: "POST", 
-        url: "api/categorie/edition",
+        url: "/api/categorie/edition",
         data:Datas,
         dataType: 'json',
         timeout: 120000, //2 Minutes
@@ -112,7 +112,7 @@ function suppressionCategorieAJAX(taskItemInContext)
   let request =
       $.ajax({
         type: "POST", 
-        url: "api/categorie/suppression",
+        url: "/api/categorie/suppression",
         data:Datas,
         dataType: 'json',
         timeout: 120000, //2 Minutes
@@ -228,7 +228,7 @@ function editionSousCategorieAJAX(id, valeur, dataId){
   let request =
       $.ajax({
         type: "POST", 
-        url: "api/sous-categorie/edition",
+        url: "/api/sous-categorie/edition",
         data:Datas,
         dataType: 'json',
         timeout: 120000, //2 Minutes
