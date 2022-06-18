@@ -247,7 +247,7 @@ function editionSousCategorieAJAX(id, valeur, dataId){
         // alert("hello");
         console.log('hello '+output_success);
         document.getElementById("tasks").children[dataId-1].innerHTML = valeur;
-        document.getElementById("tasks").children[dataId-1].setAttribute("href", valeur);
+        document.getElementById("tasks").children[dataId-1].setAttribute("href", document.getElementsByTagName("header")[0].innerHTML+"/"+valeur);
 
       });
       request.fail(function (http_error) {
