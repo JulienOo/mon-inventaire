@@ -142,7 +142,7 @@ function editSousCategories($id, $nom)
 	$req->bindParam(':id', $id, PDO::PARAM_STR);
 	$req->execute();
 
-	// echo json_encode("modification faite !");
+	echo json_encode("modification faite !");
 }
 
 function delSousCategories($id)
