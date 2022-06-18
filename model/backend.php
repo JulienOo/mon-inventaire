@@ -391,7 +391,10 @@ function setLignes($idSousCategorie)
 
 	}
 
-	echo json_encode($last_id);
+	if (isset($last_id))
+	{
+		echo json_encode($last_id);	
+	}
 }
 
 function delLignes($id)
