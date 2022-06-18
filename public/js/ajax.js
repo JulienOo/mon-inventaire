@@ -194,7 +194,7 @@ function creationSousCategorieAJAX(){
       request.done(function (output_success) {
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
           // alert(output_success);
-  document.getElementById("creation").outerHTML = '<div id="'+output_success+'" class="cube task" href="Nouvelle SOUS catégorie '+number+'" data-id="'+number+'">Nouvelle SOUS catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationSousCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+  document.getElementById("creation").outerHTML = '<div id="'+output_success+'" class="cube task" href="'+document.body.children[0].innerHTML+'/Nouvelle SOUS catégorie '+number+'" data-id="'+number+'">Nouvelle SOUS catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationSousCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
       });
       request.fail(function (http_error) {
     //Code à jouer en cas d'éxécution en erreur du script du PHP
