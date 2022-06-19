@@ -54,6 +54,10 @@ function monProfil()
 	echo "voici mon profil";
 }
 
+function connexion()
+{
+	require_once "view/template/connexion.php";
+}
 
 
 
@@ -116,4 +120,12 @@ function apiEditionCellule($req)
 { 
 	// print_r($req);
 	editCellules(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+}
+
+function apiConnexionValidation($req)
+{
+	if (isset($req["identifiant"]) AND isset($req["motDePasse"]))
+	{
+		connexionValidation(htmlspecialchars($req["identifiant"]), htmlspecialchars($req["motDePasse"]));
+	}
 }

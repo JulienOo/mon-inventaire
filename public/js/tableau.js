@@ -127,7 +127,7 @@ if (tableau.lignes != undefined)
       id = parseInt(tasks.childElementCount)+1;
       td.setAttribute("class", "task");
       td.setAttribute("data-id", i+"-"+aBis);
-      td.setAttribute("id", tableau.lignes[i][a]["id"]);
+      td.setAttribute("id", "c-"+tableau.lignes[i][a]["id"]);
       td.innerHTML = tableau.lignes[i][a]["valeur"];
       tr.appendChild(td);
       }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 16 mai 2022 à 07:43
+-- Généré le : dim. 19 juin 2022 à 13:39
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -18,8 +18,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `inventaire`
+-- Base de données : `gestion_app`
 --
+DROP DATABASE IF EXISTS `gestion_app`;
+CREATE DATABASE IF NOT EXISTS `gestion_app` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gestion_app`;
 
 -- --------------------------------------------------------
 
@@ -40,7 +43,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `colonnes` (
   `id` int(11) NOT NULL,
-  `idSous_categories` int(11) NOT NULL,
+  `idSousCategorie` int(11) NOT NULL,
   `nomColonne` varchar(50) NOT NULL,
   `format` varchar(50) NOT NULL,
   `ordre` int(11) NOT NULL
@@ -71,6 +74,19 @@ CREATE TABLE `utilisateurs` (
   `motDePasse` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `valeur_colonne`
+--
+
+CREATE TABLE `valeur_colonne` (
+  `id` int(11) NOT NULL,
+  `id_colonne` int(11) NOT NULL,
+  `ligne` int(11) NOT NULL,
+  `valeur` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Index pour les tables déchargées
 --
@@ -86,7 +102,7 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `colonnes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `sous categorie` (`idSous_categories`);
+  ADD KEY `sous categorie` (`idSousCategorie`);
 
 --
 -- Index pour la table `sous_categories`
@@ -100,6 +116,13 @@ ALTER TABLE `sous_categories`
 --
 ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `valeur_colonne`
+--
+ALTER TABLE `valeur_colonne`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_colonne` (`id_colonne`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -130,6 +153,12 @@ ALTER TABLE `utilisateurs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `valeur_colonne`
+--
+ALTER TABLE `valeur_colonne`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Contraintes pour les tables déchargées
 --
 
@@ -137,13 +166,19 @@ ALTER TABLE `utilisateurs`
 -- Contraintes pour la table `colonnes`
 --
 ALTER TABLE `colonnes`
-  ADD CONSTRAINT `sous categorie` FOREIGN KEY (`idSous_categories`) REFERENCES `sous_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `sous categorie` FOREIGN KEY (`idSousCategorie`) REFERENCES `sous_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `sous_categories`
 --
 ALTER TABLE `sous_categories`
   ADD CONSTRAINT `categorie` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `valeur_colonne`
+--
+ALTER TABLE `valeur_colonne`
+  ADD CONSTRAINT `id_colonne` FOREIGN KEY (`id_colonne`) REFERENCES `colonnes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
