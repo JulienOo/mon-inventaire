@@ -636,7 +636,7 @@ if (head.childElementCount > 0)
 
 
     td = document.createElement('td');
-    td.setAttribute("id", output_success[a]);
+    td.setAttribute("id", "c-"+output_success[a]);
     td.setAttribute("class", "task");
     td.setAttribute("data-id", nombreLigne+"-"+b);
     tr.appendChild(td);
@@ -787,6 +787,10 @@ function suppressionLigneAJAX(taskItemInContext)
 function editionCelluleAJAX(id, valeur, dataId)
 {
   try{
+
+id = id.split("-");
+id = id[1];
+
   let Datas = new FormData();
     Datas.append("id", id);
     Datas.append("nom", valeur);
@@ -814,7 +818,7 @@ function editionCelluleAJAX(id, valeur, dataId)
         // alert("hello");
         // alert('hello '+output_success);
         // alert(id)
-    document.getElementById(id).innerHTML = valeur;
+    document.getElementById("c-"+id).innerHTML = valeur;
 
       });
       request.fail(function (http_error) {
