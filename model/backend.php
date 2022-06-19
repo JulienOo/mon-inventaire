@@ -160,6 +160,8 @@ function getProduit($produit)
 {
 	$bdd = connexionBdd();
 
+	// $idProduit = getIdSousCategorie($produit);
+
 	$req = $bdd->prepare("
 		SELECT colonnes.id, colonnes.nomColonne AS nom, colonnes.format, colonnes.ordre
 		FROM sous_categories
@@ -179,12 +181,15 @@ function getProduit($produit)
 	{ 
 		// echo "id colonne : ".$colonnes[0][$i]."</br></br></br>";
 		$req = $bdd->prepare("
-		SELECT *
+		SELECT valeur_colonne.id AS id, valeur_colonne.valeur
 		FROM valeur_colonne
+		INNER JOIN colonnes ON valeur_colonne.id_colonne = colonnes.id
+		INNER JOIN sous_categories ON colonnes.idSousCategorie = sous_categories.id AND sous_categories.nomSousCategorie = :sousCategories
 		WHERE ligne = :ligne
 		ORDER BY id_colonne
 		");
 	$req->bindParam(':ligne', $i, PDO::PARAM_STR);
+	$req->bindParam(':sousCategories', $produit, PDO::PARAM_STR);
 	$req->execute();
 
 	$contenuColonnes[$i] = $req->fetchAll();
@@ -371,7 +376,7 @@ function setLignes($idSousCategorie)
 	// print_r($ordre);
 	
 	$nombreLigne = getNombreLigneTableau(getNomSousCategorie($idSousCategorie))+1;
-
+// echo "nombre de ligne ".$nombreLigne;
 	for ($i=0; isset($result[$i]); $i++)
 	{
 		if ($result[$i]["format"] == "int")
