@@ -103,7 +103,7 @@ function apiSuppressionColonne($req)
 }
 
 function apiCreationLigne($req)
-{ 
+{
 	setLignes($req["idSousCategorie"]);
 }
 
