@@ -567,7 +567,7 @@ console.log("helloooo "+taskItemInContext.getAttribute("id"));
 function creationLigneAJAX(){  
   try{
   let Datas = new FormData();
-    Datas.append("idSousCategorie", document.body.children[0].getAttribute("id"));
+    Datas.append("idSousCategorie", document.getElementsByTagName("header")[0].getAttribute("id"));
 
 
   let request =
@@ -813,6 +813,7 @@ function editionCelluleAJAX(id, valeur, dataId)
         // alert(output_success);
         // alert("hello");
         // alert('hello '+output_success);
+        // alert(id)
     document.getElementById(id).innerHTML = valeur;
 
       });
