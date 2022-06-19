@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 19 juin 2022 à 13:39
+-- Généré le : dim. 19 juin 2022 à 20:54
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -30,6 +30,7 @@ USE `gestion_app`;
 -- Structure de la table `categories`
 --
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `nomCategorie` varchar(50) NOT NULL
@@ -41,6 +42,7 @@ CREATE TABLE `categories` (
 -- Structure de la table `colonnes`
 --
 
+DROP TABLE IF EXISTS `colonnes`;
 CREATE TABLE `colonnes` (
   `id` int(11) NOT NULL,
   `idSousCategorie` int(11) NOT NULL,
@@ -52,9 +54,23 @@ CREATE TABLE `colonnes` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `erreur_connexion`
+--
+
+DROP TABLE IF EXISTS `erreur_connexion`;
+CREATE TABLE `erreur_connexion` (
+  `id` int(11) NOT NULL,
+  `ip` varchar(11) NOT NULL,
+  `quand` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `sous_categories`
 --
 
+DROP TABLE IF EXISTS `sous_categories`;
 CREATE TABLE `sous_categories` (
   `id` int(11) NOT NULL,
   `idCategorie` int(11) NOT NULL,
@@ -67,6 +83,7 @@ CREATE TABLE `sous_categories` (
 -- Structure de la table `utilisateurs`
 --
 
+DROP TABLE IF EXISTS `utilisateurs`;
 CREATE TABLE `utilisateurs` (
   `id` int(11) NOT NULL,
   `pseudo` varchar(50) NOT NULL,
@@ -74,12 +91,20 @@ CREATE TABLE `utilisateurs` (
   `motDePasse` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `pseudo`, `adresseMail`, `motDePasse`) VALUES
+(1, 'JulienOo', 'j.j@j.j', '23b2d65b60feb911e4db5a554f7b93607e521295');
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `valeur_colonne`
 --
 
+DROP TABLE IF EXISTS `valeur_colonne`;
 CREATE TABLE `valeur_colonne` (
   `id` int(11) NOT NULL,
   `id_colonne` int(11) NOT NULL,
@@ -103,6 +128,12 @@ ALTER TABLE `categories`
 ALTER TABLE `colonnes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sous categorie` (`idSousCategorie`);
+
+--
+-- Index pour la table `erreur_connexion`
+--
+ALTER TABLE `erreur_connexion`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `sous_categories`
@@ -132,31 +163,37 @@ ALTER TABLE `valeur_colonne`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT pour la table `colonnes`
 --
 ALTER TABLE `colonnes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=391;
+
+--
+-- AUTO_INCREMENT pour la table `erreur_connexion`
+--
+ALTER TABLE `erreur_connexion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT pour la table `sous_categories`
 --
 ALTER TABLE `sous_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `valeur_colonne`
 --
 ALTER TABLE `valeur_colonne`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
 
 --
 -- Contraintes pour les tables déchargées
