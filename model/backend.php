@@ -451,3 +451,80 @@ function editCellules($id, $nom)
 
 	echo json_encode("modification faite !");
 }
+
+function connexionValidation($pseudo, $motDePasse)
+{
+	$motDePasse = sha1($motDePasse);
+
+// echo json_encode($motDePasse);
+	$bdd = connexionBdd();
+
+	$req = $bdd->prepare("
+		SELECT id
+		FROM utilisateurs
+		WHERE pseudo = :pseudo AND motDePasse = :motDePasse
+		");
+
+	$req->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+	$req->bindParam(':motDePasse', $motDePasse, PDO::PARAM_STR);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if (isset($result[0]["id"]))
+	{
+		$_SESSION["logged"] = true;
+		echo true;
+	}
+	else
+	{
+		connexionValidationErreur();
+
+	if (connexionValidationErreurCheck())
+	{
+		echo -1;
+	}
+	else
+	{
+		echo 0;
+	}
+	}
+}
+
+function connexionValidationErreur()
+{
+	$bdd = connexionBdd();
+
+	$sql = "INSERT INTO erreur_connexion ( ip, quand) VALUES ( ?, NOW())";
+	$bdd->prepare($sql)->execute([$_SERVER['REMOTE_ADDR']]);
+
+}
+
+function connexionValidationErreurCheck()
+{
+	$bdd = connexionBdd();
+	$quand = date("Y-m-d H:m:i", strtotime("-2 Hours"));
+
+	$req = $bdd->prepare("
+		SELECT COUNT(id) AS nombre
+		FROM erreur_connexion
+		WHERE ip = :ip AND quand > :quand 
+		");
+
+	$req->bindParam(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+	$req->bindParam(':quand', $quand, PDO::PARAM_STR);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if ($result[0]["nombre"] > 4)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+
+}
