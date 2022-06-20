@@ -384,7 +384,7 @@ th = document.createElement('th');
       document.getElementById("tasks");
 
       var td = document.createElement('td');
-      td.setAttribute("id", output_success[b]);
+      td.setAttribute("id", "c-"+output_success[b]);
       td.setAttribute("class", "task");
       td.setAttribute("data-id", a+"-"+taille);
       td.innerHTML = "vide"
