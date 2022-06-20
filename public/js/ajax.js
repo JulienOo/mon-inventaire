@@ -691,9 +691,13 @@ function suppressionLigneAJAX(taskItemInContext)
 {
 
   try{
-  var id = parseInt(taskItemInContext.getAttribute("id"));
+  var id = taskItemInContext.getAttribute("id");
+  id = id.split("-");
+  id = id[1];
+  
   let Datas = new FormData();
     Datas.append("id", id);
+
 
 
 
