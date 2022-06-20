@@ -20,8 +20,16 @@
 
 #keywords thead {
   cursor: pointer;
-  background: #c9dff0;
+  /*background: #c9dff0;*/
+  background: #99acff;
 }
+
+#keywords tbody {
+  cursor: pointer;
+  /*background: #c9dff0;*/
+  background: #e3e8ff;
+}
+
 #keywords thead tr th { 
   font-weight: bold;
   padding: 12px 30px;
@@ -72,3 +80,33 @@
   
   width: 300px;
 }
+
+th, td{
+     border: 5px solid white;
+}
+
+/*thead tr:hover{
+background-color: #7a92fa;
+}*/
+
+
+tbody tr:hover{
+background-color: #ede3ff;
+}
+
+/*
+body thead{
+  background-color: #black;
+}
+
+th{
+  color:  white  ;
+  border-color: white;
+  border-width: 20px;
+  border:  solid ;
+  background-color: black ;
+}
+
+td{
+
+}*/
