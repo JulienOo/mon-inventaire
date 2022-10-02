@@ -383,10 +383,10 @@ function suppressionSousCategorieAJAX(taskItemInContext)
 function creationColonneAJAX(){  
   try{
   let Datas = new FormData();
-    Datas.append("idSousColonne", document.getElementsByTagName("header")[0].getAttribute("id"));
+    Datas.append("idSousCategorie", document.getElementsByTagName("header")[0].getAttribute("id"));
     Datas.append("nom", "nouvelle colonne");
 
-
+// alert("creation de colonne !");
 
   let request =
       $.ajax({
@@ -406,35 +406,42 @@ function creationColonneAJAX(){
       request.done(function (output_success) { 
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
           // alert(output_success);
-th = document.createElement('th');
-    th.setAttribute("class", "task");
-    th.setAttribute("type", "string");
-    th.setAttribute("data-id", head.childElementCount+1);
-    th.setAttribute("id", output_success);
-    th.innerHTML = "nouvelle colonne"
-    head.appendChild(th);
+          if (output_success["permissions"] == true)
+          {
+            th = document.createElement('th');
+            th.setAttribute("class", "task");
+            th.setAttribute("type", "string");
+            th.setAttribute("data-id", head.childElementCount+1);
+            th.setAttribute("id", output_success);
+            th.innerHTML = "nouvelle colonne"
+            head.appendChild(th);
 
 
-    nombreLigne = document.getElementById("tasks").childElementCount+1;
+            nombreLigne = document.getElementById("tasks").childElementCount+1;
 
-    var b=0;
-    for (var a=1; a < nombreLigne; a++) 
-    {
+            var b=0;
+            for (var a=1; a < nombreLigne; a++) 
+            {
 
-      tasksChildren = document.getElementById("tasks").children[b];
-      taille = document.getElementById("tasks").children[b].childElementCount+1;
-      console.log("tour numéro : "+nombreLigne);
-      document.getElementById("tasks");
+              tasksChildren = document.getElementById("tasks").children[b];
+              taille = document.getElementById("tasks").children[b].childElementCount+1;
+              console.log("tour numéro : "+nombreLigne);
+              document.getElementById("tasks");
 
-      var td = document.createElement('td');
-      td.setAttribute("id", output_success[b]);
-      td.setAttribute("class", "task");
-      td.setAttribute("data-id", a+"-"+taille);
-      td.innerHTML = "vide"
-      tasksChildren.appendChild(td);
+              var td = document.createElement('td');
+              td.setAttribute("id", output_success[b]);
+              td.setAttribute("class", "task");
+              td.setAttribute("data-id", a+"-"+taille);
+              td.innerHTML = "vide"
+              tasksChildren.appendChild(td);
 
-      b++;
-    }
+              b++;
+            }
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
           });
       request.fail(function (http_error) {
@@ -487,7 +494,15 @@ function editionColonnesNomAJAX(id, valeur, dataId)
         // alert(output_success.output);
         // alert("hello");
         // alert('hello '+output_success);
-  document.getElementById(id).innerHTML = value;
+
+          if (output_success["permissions"] == true)
+          {
+            document.getElementById(id).innerHTML = value;
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
 
       });
@@ -542,7 +557,9 @@ console.log("helloooo "+taskItemInContext.getAttribute("id"));
 
             // console.log("Demande de suppression colonne");
 
-      var colonne = parseInt(taskItemInContext.getAttribute("data-id"))-1;
+          if (output_success["permissions"] == true)
+          {
+                  var colonne = parseInt(taskItemInContext.getAttribute("data-id"))-1;
       var nombreColonne = document.getElementById("head").childElementCount-1;
       var nombreLigne = document.getElementById("tasks").childElementCount;
 
@@ -582,8 +599,11 @@ console.log("helloooo "+taskItemInContext.getAttribute("id"));
       tasks.children[a].children[i].setAttribute("data-id", nouveauDataId);
       }
     }
-
-
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
       });
       request.fail(function (http_error) {
     //Code à jouer en cas d'éxécution en erreur du script du PHP

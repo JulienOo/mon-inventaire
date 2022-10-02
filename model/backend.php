@@ -45,13 +45,13 @@ function getIdCategorie($nom)
 function getIdCategorieDepuisSousCategorie($id)
 {
 	$bdd = connexionBdd();
-
-	$req = $bdd->prepare("SELECT idCategorie  FROM sous_categories WHERE id = :id");
+// echo $id;
+	$req = $bdd->prepare("SELECT idCategorie as id FROM sous_categories WHERE id = :id");
 	$req->bindParam(":id", $id);
 	$req->execute();
 
 	$result = $req->fetchAll();
-
+// print_r($result);
 	if (isset($result[0]["id"]))
 	{
 		return 	$result[0]["id"];
@@ -60,7 +60,6 @@ function getIdCategorieDepuisSousCategorie($id)
 	{
 		return 0;
 	}
-
 }
 
 function getIdSousCategorie($nom)
@@ -326,11 +325,6 @@ $id_colonne = strval($bdd->lastInsertId());
 		$last_id[$i] = strval($bdd->lastInsertId());
 
 	}
-
-
-
-	echo json_encode($last_id);
-
 }
 
 function editColonnesNom($id, $nom)
@@ -342,8 +336,6 @@ function editColonnesNom($id, $nom)
 	$req->bindParam(':nom', $nom, PDO::PARAM_STR);
 	$req->bindParam(':id', $id, PDO::PARAM_STR);
 	$req->execute();
-
-	echo json_encode("modification faite !");
 }
 
 function delColonnes($id)
@@ -368,8 +360,6 @@ function delColonnes($id)
 	$req= $bdd->prepare($sql);
 	$req->bindParam(':ordre', $ordre[0]["ordre"], PDO::PARAM_STR);
 	$req->execute();
-
-	echo json_encode("modification faite !");
 }
 
 

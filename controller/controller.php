@@ -44,12 +44,12 @@ function produits()
 {
 	$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
-	// $id = getIdSousCategorie($url[2]);
+	$id = getIdSousCategorie($url[2]);
 
 
-	$id = getIdCategorie($url[1]);
+	$idCategorie = getIdCategorie($url[1]);
 
-	if (getPermissionLecture($id))
+	if (getPermissionLecture($idCategorie))
 	{
 		$test = getProduit($url[2]);
 	}
@@ -184,17 +184,57 @@ function apiSuppressionSousCategorie($req)
 
 function apiCreationColonne($req)
 { //ajouter le control de permission (même groupe + Admin)
-	setColonnes(htmlspecialchars($req["idSousColonne"]), htmlspecialchars($req["nom"]));
+// print_r($req);
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
+// print_r($idCategorie);
+	if (getPermissionEcriture($idCategorie))
+	{
+		setColonnes(htmlspecialchars($req["idSousCategorie"]), htmlspecialchars($req["nom"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
 }
 
 function apiEditionColonneNom($req)
 { //ajouter le control de permission (même groupe + Admin)
-	editColonnesNom(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+	
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
+
+	if (getPermissionEcriture($idCategorie))
+	{
+		editColonnesNom(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
 }
 
 function apiSuppressionColonne($req)
 { //ajouter le control de permission (même groupe + Admin)
-	delColonnes(htmlspecialchars($req["id"]));
+
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
+
+	if (getPermissionEcriture($idCategorie))
+	{
+		delColonnes(htmlspecialchars($req["id"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
+
 }
 
 function apiCreationLigne($req)
