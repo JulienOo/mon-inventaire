@@ -21,7 +21,14 @@ function sousCategorie()
 
 	$id = getIdCategorie($url[1]);
 
-	$test = getSousCategories($url[1]);
+	if (getPermissionLecture($id))
+	{
+		$test = getSousCategories($url[1]);
+	}
+	else
+	{
+		header("Location: /erreur-404");
+	}
 
 
 	require_once "view/backend/headSousCategories.php";
@@ -37,9 +44,21 @@ function produits()
 {
 	$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 
-	$id = getIdSousCategorie($url[2]);
+	// $id = getIdSousCategorie($url[2]);
 
-	$test = getProduit($url[2]);
+
+	$id = getIdCategorie($url[1]);
+
+	if (getPermissionLecture($id))
+	{
+		$test = getProduit($url[2]);
+	}
+	else
+	{
+		header("Location: /erreur-404");
+	}
+
+
 
 	require_once "view/backend/headTableau.php";
 	require_once "view/backend/tableau.php";
@@ -62,62 +81,96 @@ function connexion()
 
 
 function apiCreationCategorie($req)
-{
-	setCategories(htmlspecialchars($req["nom"]));
+{ //ajouter le control de permission (même groupe + Admin)
+
+
+	if (getPermissionEcriture(0))
+	{
+		$return["lastId"] = setCategories(htmlspecialchars($req["nom"]));
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}	
 }
 
 function apiEditionCategorie($req)
-{
-	editCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+{ //ajouter le control de permission (même groupe + Admin)
+
+
+	if (getPermissionEcriture($req["id"]))
+	{
+		editCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}	
+
 }
 
 function apiSuppressionCategorie($req)
-{
-	delCategories(htmlspecialchars($req["id"]));
+{ //ajouter le control de permission (même groupe + Admin)
+	if (getPermissionEcriture($req["id"]))
+	{
+		delCategories(htmlspecialchars($req["id"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}	
 }
 
 function apiCreationSousCategorie($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	setSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
 
 function apiEditionSousCategorie($req)
-{ 
+{ //ajouter le control de permission (même groupe + Admin)
 	editSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
 
 function apiSuppressionSousCategorie($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	delSousCategories(htmlspecialchars($req["id"]));
 }
 
 function apiCreationColonne($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	setColonnes(htmlspecialchars($req["idSousColonne"]), htmlspecialchars($req["nom"]));
 }
 
 function apiEditionColonneNom($req)
-{ 
+{ //ajouter le control de permission (même groupe + Admin)
 	editColonnesNom(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
 
 function apiSuppressionColonne($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	delColonnes(htmlspecialchars($req["id"]));
 }
 
 function apiCreationLigne($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	setLignes($req["idSousCategorie"]);
 }
 
 function apiSuppressionLigne($req)
-{
+{ //ajouter le control de permission (même groupe + Admin)
 	delLignes(htmlspecialchars($req["id"]));
 }
 
 function apiEditionCellule($req)
-{ 
+{ //ajouter le control de permission (même groupe + Admin)
 	// print_r($req);
 	editCellules(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
 }
@@ -125,7 +178,7 @@ function apiEditionCellule($req)
 function apiConnexionValidation($req)
 {
 	if (isset($req["identifiant"]) AND isset($req["motDePasse"]))
-	{
+	{ 
 		connexionValidation(htmlspecialchars($req["identifiant"]), htmlspecialchars($req["motDePasse"]));
 	}
 }

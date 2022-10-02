@@ -9,8 +9,8 @@ function getCategories()
 
 $bdd = connexionBdd();
 
-$req = $bdd->prepare("SELECT nomCategorie as nom, id FROM categories");
-// $req->bindParam(1,$id);
+$req = $bdd->prepare("SELECT nomCategorie as nom, id FROM categories WHERE idGroupe = :idGroupe");
+$req->bindParam(":idGroupe", $_SESSION["group"]);
 $req->execute();
 
 $result = $req->fetchAll();
@@ -68,13 +68,13 @@ function setCategories($nom)
 
 $bdd = connexionBdd();
 
-$sql = "INSERT INTO categories ( nomCategorie ) VALUES ( ? )";
-$bdd->prepare($sql)->execute([$nom]);
+$sql = "INSERT INTO categories ( nomCategorie, idGroupe ) VALUES ( ?, ? )";
+$bdd->prepare($sql)->execute([$nom, $_SESSION["group"]]);
 
 $last_id = strval($bdd->lastInsertId());
 
 // echo "78";
-echo $last_id;
+return $last_id;
 
 // return json_encode($result);
 }
@@ -89,7 +89,6 @@ function editCategories($id, $nom)
 	$req->bindParam(':id', $id, PDO::PARAM_STR);
 	$req->execute();
 
-	echo json_encode("modification faite !");
 }
 function delCategories($id)
 {
@@ -99,7 +98,6 @@ function delCategories($id)
 	$req= $bdd->prepare($sql);
 	$req->execute([$id]);
 
-	echo json_encode("modification faite !");
 }
 
 function getSousCategories($categorie)
@@ -110,9 +108,10 @@ function getSousCategories($categorie)
 		SELECT nomSousCategorie as nom, sous_categories.id
 		FROM sous_categories
 		INNER JOIN categories ON categories.id = sous_categories.idCategorie
-		WHERE :categorie = categories.nomCategorie
+		WHERE :categorie = categories.nomCategorie AND categories.idGroupe = :idGroupe
 		");
 	$req->bindParam(':categorie', $categorie, PDO::PARAM_STR);
+	$req->bindParam(':idGroupe', $_SESSION["group"], PDO::PARAM_STR);
 	$req->execute();
 
 	$result = $req->fetchAll();
@@ -454,14 +453,15 @@ function editCellules($id, $nom)
 
 function connexionValidation($pseudo, $motDePasse)
 {
-	$motDePasse = sha1($motDePasse);
+	//$motDePasse = sha1($motDePasse);
 
 // echo json_encode($motDePasse);
 	$bdd = connexionBdd();
 
 	$req = $bdd->prepare("
-		SELECT id
+		SELECT utilisateurs.id, groupe_utilisateurs.idGroupe, groupe_utilisateurs.permissions
 		FROM utilisateurs
+		INNER JOIN groupe_utilisateurs ON utilisateurs.id = groupe_utilisateurs.idUtilisateur
 		WHERE pseudo = :pseudo AND motDePasse = :motDePasse
 		");
 
@@ -474,20 +474,22 @@ function connexionValidation($pseudo, $motDePasse)
 	if (isset($result[0]["id"]))
 	{
 		$_SESSION["logged"] = true;
+		$_SESSION["group"] = $result[0]["idGroupe"];
+		$_SESSION["permissions"] = $result[0]["permissions"];
 		echo true;
 	}
 	else
 	{
 		connexionValidationErreur();
 
-	if (connexionValidationErreurCheck())
-	{
-		echo -1;
-	}
-	else
-	{
-		echo 0;
-	}
+		if (connexionValidationErreurCheck())
+		{
+			echo -1;
+		}
+		else
+		{
+			echo 0;
+		}
 	}
 }
 
@@ -527,4 +529,81 @@ function connexionValidationErreurCheck()
 	}
 
 
+}
+
+function getPermissionLecture($id)
+{
+	$bdd = connexionBdd();
+
+	$req = $bdd->prepare("
+		SELECT idGroupe
+		FROM categories
+		WHERE id = :idCategorie
+		");
+
+	$req->bindParam(':idCategorie', $id, PDO::PARAM_STR);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if (isset($result[0]["idGroupe"]))
+	{
+		if ($result[0]["idGroupe"] == $_SESSION["group"])
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function getPermissionEcriture($id)
+{
+	$bdd = connexionBdd();
+
+if ($id == 0)
+{
+	if ($_SESSION['permissions'] == "Editeur")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+else
+{
+	$req = $bdd->prepare("
+		SELECT idGroupe
+		FROM categories
+		WHERE id = :idCategorie
+		");
+
+	$req->bindParam(':idCategorie', $id, PDO::PARAM_STR);
+	$req->execute();
+
+	$result = $req->fetchAll();
+	if (isset($result[0]["idGroupe"]))
+	{
+		if ($result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "Editeur")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+	}
 }

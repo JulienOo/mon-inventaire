@@ -9,8 +9,9 @@ require_once "controller/controller.php";
 
 // print_r(getIdCategorie("Nouvelle catégorie 2"));
 
-$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
+$_SESSION["permissions"] = "Editeur";
 
+$url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 // print_r($url);
 if (!connexionValidationErreurCheck())
 {
@@ -165,7 +166,7 @@ if (!connexionValidationErreurCheck())
 			if (isset($url[2]) AND isset($url[3]))
 			{
 				if ($url[2] == "connexion" AND $url[3] == "validation")
-				{
+				{ 
 					apiConnexionValidation($_POST);
 				}
 			}
