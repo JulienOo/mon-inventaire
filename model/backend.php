@@ -405,13 +405,16 @@ function setLignes($idSousCategorie)
 
 	if (isset($last_id))
 	{
-		echo json_encode($last_id);	
+		return $last_id;	
 	}
 }
 
 function delLignes($id)
 {
 	$bdd = connexionBdd();
+
+	$id = explode("-", rawurldecode($id));
+	$id = $id[1];
 
 	$req = $bdd->prepare("
 		SELECT ligne, colonnes.id as id_colonne, colonnes.idSousCategorie
@@ -442,8 +445,6 @@ function delLignes($id)
 	$req->bindParam(':ligne', $result[0]["ligne"], PDO::PARAM_STR);
 	$req->bindParam(':idSousCategorie', $result[0]["idSousCategorie"], PDO::PARAM_STR);
 	$req->execute();
-
-	echo json_encode("modification faite !");
 }
 
 function editCellules($id, $nom)
@@ -455,8 +456,6 @@ function editCellules($id, $nom)
 	$req->bindParam(':nom', $nom, PDO::PARAM_STR);
 	$req->bindParam(':id', $id, PDO::PARAM_STR);
 	$req->execute();
-
-	echo json_encode("modification faite !");
 }
 
 function connexionValidation($pseudo, $motDePasse)

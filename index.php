@@ -9,7 +9,7 @@ require_once "controller/controller.php";
 
 // print_r(getIdCategorie("Nouvelle catégorie 2"));
 
-$_SESSION["permissions"] = "Editeur";
+$_SESSION["permissions"] = "Editdeur";
 
 $url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 // print_r($url);

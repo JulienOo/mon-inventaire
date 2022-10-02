@@ -652,81 +652,86 @@ function creationLigneAJAX(){
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
           // alert(output_success);
 
-if (head.childElementCount > 0)
-    {
-  // contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
-      
+          if (output_success["permissions"] == true)
+          {
+            if (head.childElementCount > 0)
+                {
+              // contenu = "<tr id='task-2'><td class='task' data-id='2-1' class='lalign'>desktop workspace photos</td><td class='task' data-id='2-2' >2,200</td><td class='task' data-id='2-3' >500</td><td class='task' data-id='2-4' >22%</td><td class='task' data-id='2-5' >8.9</td></tr>";
+                  
 
 
-    nombreColonne = document.getElementById("head").childElementCount;
-    
+                nombreColonne = document.getElementById("head").childElementCount;
+                
 
-    console.log("nombre colonnes :"+nombreColonne);
+                console.log("nombre colonnes :"+nombreColonne);
 
-    parent = document.getElementById("tasks");
+                parent = document.getElementById("tasks");
 
-    nombreLigne = document.getElementById("tasks").childElementCount+1;
+                nombreLigne = document.getElementById("tasks").childElementCount+1;
 
-    tr = document.createElement('tr');
-    tr.setAttribute("id", "task-"+nombreLigne);
-    parent.appendChild(tr);
-
-
-    var b=1;
-    for (var a = 0; nombreColonne > a; a++) 
-    {
-
-      // console.log("bonsoir "+a);
-    type = document.getElementById("head").children[a].getAttribute("type");
-    // console.log(type);
-
-    if (type == "string") {
-
-      // console.log("string");
-
-      valeur = "vide";
-    } else if (type == "int") {
-
-      // console.log("int");
-
-      valeur = "0";
-    } else {
-
-      // console.log("double");
-
-      valeur = "vide"
-    }
+                tr = document.createElement('tr');
+                tr.setAttribute("id", "task-"+nombreLigne);
+                parent.appendChild(tr);
 
 
-    td = document.createElement('td');
-    td.setAttribute("id", "c-"+output_success[a]);
-    td.setAttribute("class", "task");
-    td.setAttribute("data-id", nombreLigne+"-"+b);
-    tr.appendChild(td);
+                var b=1;
+                for (var a = 0; nombreColonne > a; a++) 
+                {
+
+                  // console.log("bonsoir "+a);
+                type = document.getElementById("head").children[a].getAttribute("type");
+                // console.log(type);
+
+                if (type == "string") {
+
+                  // console.log("string");
+
+                  valeur = "vide";
+                } else if (type == "int") {
+
+                  // console.log("int");
+
+                  valeur = "0";
+                } else {
+
+                  // console.log("double");
+
+                  valeur = "vide"
+                }
 
 
-    var tdText = document.createTextNode(valeur);
-    td.appendChild(tdText);
-
-    b++;
-    }
-
-    // var tr = document.createElement('tr');
-    // parent.appendChild(tr);
-     
-    // var td = document.createElement('td');
-    // tr.appendChild(td);
+                td = document.createElement('td');
+                td.setAttribute("id", "c-"+output_success["lastId"][a]);
+                td.setAttribute("class", "task");
+                td.setAttribute("data-id", nombreLigne+"-"+b);
+                tr.appendChild(td);
 
 
-    // var tdText = document.createTextNode(value);
-    // td.appendChild(tdText);
-     }
-     else
-     {
-      alert("Merci de créer dans un premier temps une colonne !");
-     } 
+                var tdText = document.createTextNode(valeur);
+                td.appendChild(tdText);
 
-     
+                b++;
+                }
+
+                // var tr = document.createElement('tr');
+                // parent.appendChild(tr);
+                 
+                // var td = document.createElement('td');
+                // tr.appendChild(td);
+
+
+                // var tdText = document.createTextNode(value);
+                // td.appendChild(tdText);
+                 }
+                 else
+                 {
+                  alert("Merci de créer dans un premier temps une colonne !");
+                 } 
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
           });
       request.fail(function (http_error) {
@@ -754,11 +759,12 @@ function suppressionLigneAJAX(taskItemInContext)
 {
 
   try{
-  var id = parseInt(taskItemInContext.getAttribute("id"));
+  // var id = parseInt(taskItemInContext.getAttribute("id"));
+  var id = taskItemInContext.getAttribute("id");
   let Datas = new FormData();
     Datas.append("id", id);
 
-
+// alert(id);
 
   let request =
       $.ajax({
@@ -777,10 +783,10 @@ function suppressionLigneAJAX(taskItemInContext)
 
       request.done(function (output_success) {
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
-          alert(output_success);
-
-            // console.log("Demande de suppression colonne");
-      console.log(taskItemInContext.getAttribute("data-id").split("-"));
+          // alert(output_success);
+          if (output_success["permissions"] == true)
+          {
+ console.log(taskItemInContext.getAttribute("data-id").split("-"));
       const tableauDataId = taskItemInContext.getAttribute("data-id").split("-");
 
 
@@ -822,13 +828,18 @@ function suppressionLigneAJAX(taskItemInContext)
 
         ligneBis++;
         ligne++;
-      }
+      }          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
+     
       
 
       });
       request.fail(function (http_error) {
     //Code à jouer en cas d'éxécution en erreur du script du PHP
-
+    alert(id);
      let server_msg = http_error.responseText;
      let code = http_error.status;
      let code_label = http_error.statusText;
@@ -881,7 +892,14 @@ id = id[1];
         // alert("hello");
         // alert('hello '+output_success);
         // alert(id)
-    document.getElementById("c-"+id).innerHTML = valeur;
+          if (output_success["permissions"] == true)
+          {
+            document.getElementById("c-"+id).innerHTML = valeur;
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
       });
       request.fail(function (http_error) {
