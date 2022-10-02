@@ -41,6 +41,28 @@ function getIdCategorie($nom)
 
 }
 
+
+function getIdCategorieDepuisSousCategorie($id)
+{
+	$bdd = connexionBdd();
+
+	$req = $bdd->prepare("SELECT idCategorie  FROM sous_categories WHERE id = :id");
+	$req->bindParam(":id", $id);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if (isset($result[0]["id"]))
+	{
+		return 	$result[0]["id"];
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+
 function getIdSousCategorie($nom)
 {
 	$bdd = connexionBdd();
@@ -140,8 +162,6 @@ function editSousCategories($id, $nom)
 	$req->bindParam(':nom', $nom, PDO::PARAM_STR);
 	$req->bindParam(':id', $id, PDO::PARAM_STR);
 	$req->execute();
-
-	echo json_encode("modification faite !");
 }
 
 function delSousCategories($id)
@@ -151,8 +171,6 @@ function delSousCategories($id)
 	$sql = "DELETE FROM sous_categories WHERE id=?";
 	$req= $bdd->prepare($sql);
 	$req->execute([$id]);
-
-	echo json_encode("modification faite !");
 }
 
 function getProduit($produit)

@@ -214,7 +214,15 @@ function creationSousCategorieAJAX(){
       request.done(function (output_success) {
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
           // alert(output_success);
-  document.getElementById("creation").outerHTML = '<div id="'+output_success+'" class="cube task" href="'+document.body.children[0].innerHTML+'/Nouvelle SOUS catégorie '+number+'" data-id="'+number+'">Nouvelle SOUS catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationSousCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+          if (output_success["permissions"] == true)
+          {
+              document.getElementById("creation").outerHTML = '<div id="'+output_success+'" class="cube task" href="'+document.body.children[0].innerHTML+'/Nouvelle SOUS catégorie '+number+'" data-id="'+number+'">Nouvelle SOUS catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationSousCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
+
       });
       request.fail(function (http_error) {
     //Code à jouer en cas d'éxécution en erreur du script du PHP
@@ -265,9 +273,16 @@ function editionSousCategorieAJAX(id, valeur, dataId){
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
         // alert(output_success.output);
         // alert("hello");
-        console.log('hello '+output_success);
-        document.getElementById("tasks").children[dataId-1].innerHTML = valeur;
-        document.getElementById("tasks").children[dataId-1].setAttribute("href", document.getElementsByTagName("header")[0].innerHTML+"/"+valeur);
+
+          if (output_success["permissions"] == true)
+          {
+            document.getElementById("tasks").children[dataId-1].innerHTML = valeur;
+            document.getElementById("tasks").children[dataId-1].setAttribute("href", document.getElementsByTagName("header")[0].innerHTML+"/"+valeur);
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
       });
       request.fail(function (http_error) {
@@ -320,19 +335,27 @@ function suppressionSousCategorieAJAX(taskItemInContext)
       request.done(function (output_success) {
           //Code à jouer en cas d'éxécution sans erreur du script du PHP
           // alert(output_success);
-taskItemInContext.remove();
+          if (output_success["permissions"] == true)
+          {
+              taskItemInContext.remove();
+              
+              var ligneRestante = document.getElementById("tasks").childElementCount;
+              var ligneSuprime = parseInt(taskItemInContext.getAttribute("data-id"));
+              var id = parseInt(taskItemInContext.getAttribute("id"));
+              var ligneModif = ligneSuprime-1;
 
-      var ligneRestante = document.getElementById("tasks").childElementCount;
-      var ligneSuprime = parseInt(taskItemInContext.getAttribute("data-id"));
-      var id = parseInt(taskItemInContext.getAttribute("id"));
-      var ligneModif = ligneSuprime-1;
+              for (var ligneModif, ligneSuprime; ligneModif<ligneRestante; ligneModif++) 
+              {
+                document.getElementById("tasks").children[ligneModif].setAttribute("data-id", ligneSuprime);
 
-      for (var ligneModif, ligneSuprime; ligneModif<ligneRestante; ligneModif++) {
-        document.getElementById("tasks").children[ligneModif].setAttribute("data-id", ligneSuprime);
+              ligneSuprime++;
+              }
+          }
+          else
+          {
+            alert("Vous n'avez pas les permissions d'éditions !")
+          }
 
-      ligneSuprime++;
-      }
-      console.log(id);
 
 
       });

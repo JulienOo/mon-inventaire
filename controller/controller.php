@@ -116,6 +116,7 @@ function apiEditionCategorie($req)
 
 function apiSuppressionCategorie($req)
 { //ajouter le control de permission (même groupe + Admin)
+
 	if (getPermissionEcriture($req["id"]))
 	{
 		delCategories(htmlspecialchars($req["id"]));
@@ -131,17 +132,54 @@ function apiSuppressionCategorie($req)
 
 function apiCreationSousCategorie($req)
 { //ajouter le control de permission (même groupe + Admin)
-	setSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
+
+	if (getPermissionEcriture($idCategorie))
+	{
+		setSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
 }
 
 function apiEditionSousCategorie($req)
 { //ajouter le control de permission (même groupe + Admin)
-	editSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
+
+	if (getPermissionEcriture($idCategorie))
+	{
+		editSousCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
 }
 
 function apiSuppressionSousCategorie($req)
 { //ajouter le control de permission (même groupe + Admin)
-	delSousCategories(htmlspecialchars($req["id"]));
+	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
+
+	if (getPermissionEcriture($idCategorie))
+	{
+		delSousCategories(htmlspecialchars($req["id"]));
+
+		$return["permissions"] = true;
+		echo json_encode($return);
+	}
+	else
+	{
+		echo json_encode(false);
+	}
 }
 
 function apiCreationColonne($req)
