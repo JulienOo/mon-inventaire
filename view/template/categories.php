@@ -28,24 +28,36 @@
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
       </li>
+      <?php if ($_SESSION["permissions"] == "editeur")
+      {
+      	echo '
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="editCategorie"><i class="fa fa-edit"></i>Modifier</a>
       </li>
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="deleteCategorie"><i class="fa fa-times"></i>Supprimer</a>
-      </li>
+      </li>';
+    } ?> 
     </ul>
   </nav>
 
 <script type="text/javascript">
 <?= $script ?>
 
+<?php echo ($_SESSION["permissions"] == "lecteur") ? 'var lecteur=true': 'var lecteur=false'; ?>
 </script>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script type="text/javascript" src="/public/js/ajax.js"></script>
 	<script type="text/javascript" src="/public/js/categories.js"></script>
-
-	<script type="text/javascript" src="/public/js/clickDroit.js"></script>
-</body>
+	<?php 
+	if ($_SESSION["permissions"] == "editeur")
+		{ 
+			echo '<script type="text/javascript" src="/public/js/clickDroit-Editeur.js"></script>';
+		}
+		else
+		{
+			echo '<script type="text/javascript" src="/public/js/clickDroit-Lecteur.js"></script>';
+		}  ?>
+	</body>
 </html>

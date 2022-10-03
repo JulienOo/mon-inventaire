@@ -13,6 +13,7 @@
 	<input type="text" name="identifiant" placeholder="identifiant">
 	<input type="password" name="motDePasse" placeholder="mot de passe">
 	<input type="submit" id="validation">
+	<a href="/inscription">m'incrire</a>
 </div>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>

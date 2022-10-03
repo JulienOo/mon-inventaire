@@ -23,16 +23,20 @@
   </table>
 	</section>
 
-<section class="parentCroixTableau">
+      <?php if ($_SESSION["permissions"] == "editeur")
+      {
+        echo '<section class="parentCroixTableau">
 	<section class="croixTableau">
-		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationLigne()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
+		<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationLigne()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
 		<p>ajouter une ligne</p>
 	</section>
 	<section class="croixTableau">
-		<div id="creation" class="cube ajouterCategorie" href="#" onclick='creationColonne()'><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
+		<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationColonne()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>
 		<p>ajouter une colonne</p>
 	</section>
-</section>
+</section>';
+}
+?>
 
 
 <!-- menu click droit -->
@@ -41,15 +45,18 @@
 <!-- click droit head tableau -->
    <nav id="context-menu-head" class="context-menu">
     <ul class="context-menu__items">
-      <li class="context-menu__item">
+<!--       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
-      </li>
-      <li class="context-menu__item">
+      </li> -->
+      <?php if ($_SESSION["permissions"] == "editeur")
+      {
+        echo '<li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="EditHead"><i class="fa fa-edit"></i>renommer la cellule</a>
       </li>
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="DeleteHead"><i class="fa fa-times"></i>Supprimer la colonne</a>
-      </li>
+      </li>';
+    } ?>
     </ul>
   </nav>
 
@@ -60,23 +67,35 @@
 <!--       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="ViewContenu"><i class="fa fa-eye"></i>Ouvrir</a>
       </li> -->
-      <li class="context-menu__item">
+      <?php if ($_SESSION["permissions"] == "editeur")
+      {
+        echo '<li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="EditContenu"><i class="fa fa-edit"></i>Modifier la cellule</a>
       </li>
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="DeleteContenu"><i class="fa fa-times"></i>Supprimer la ligne</a>
-      </li>
+      </li>';
+    } ?>
     </ul>
   </nav>
 
  <script type="text/javascript">
 <?= $script ?>
+
+<?php echo ($_SESSION["permissions"] == "lecteur") ? 'var lecteur=true': 'var lecteur=false'; ?>
   </script>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script type="text/javascript" src="/public/js/ajax.js"></script>
-
-	<script type="text/javascript" src="/public/js/clickDroitContenuTableau.js"></script>
+  <?php 
+  if ($_SESSION["permissions"] == "editeur")
+    { 
+      echo '<script type="text/javascript" src="/public/js/clickDroitContenuTableau-Editeur.js"></script>';
+    }
+    else
+    {
+      echo '<script type="text/javascript" src="/public/js/clickDroitContenuTableau-Lecture.js"></script></script>';
+    }  ?>
 	<script type="text/javascript" src="/public/js/tableau.js"></script>
 
 </body>

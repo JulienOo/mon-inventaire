@@ -148,8 +148,6 @@ $sql = "INSERT INTO sous_categories ( idCategorie, nomSousCategorie ) VALUES ( ?
 $bdd->prepare($sql)->execute([$idCategorie, $nomSousCategorie]);
 
 $last_id = strval($bdd->lastInsertId());
-
-echo $last_id;
 }
 
 function editSousCategories($id, $nom)
@@ -576,7 +574,7 @@ function getPermissionEcriture($id)
 
 if ($id == 0)
 {
-	if ($_SESSION['permissions'] == "Editeur")
+	if ($_SESSION['permissions'] == "editeur")
 	{
 		return true;
 	}
@@ -599,7 +597,7 @@ else
 	$result = $req->fetchAll();
 	if (isset($result[0]["idGroupe"]))
 	{
-		if ($result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "Editeur")
+		if ($result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "editeur")
 		{
 			return true;
 		}

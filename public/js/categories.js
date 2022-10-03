@@ -80,10 +80,12 @@ function validationEdition(dataId, id)
 	    div.setAttribute("href", "#");
 	    tasks.appendChild(div);
 
+if (lecteur == false)
+{
 	    img = document.createElement('img')
 	    img.setAttribute("src", "https://www.svgrepo.com/show/152121/plus.svg")
 	    img.setAttribute("onclick", "creationCategorie()");
 	    creation.appendChild(img);
-
+}
 
 }
