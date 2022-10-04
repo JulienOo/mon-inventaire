@@ -78,10 +78,15 @@ function connexion()
 	require_once "view/template/connexion.php";
 }
 
+function inscription()
+{
+	require_once "view/template/inscription.php";
+}
+
 
 
 function apiCreationCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 
 
 	if (getPermissionEcriture(0))
@@ -97,7 +102,7 @@ function apiCreationCategorie($req)
 }
 
 function apiEditionCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 
 
 	if (getPermissionEcriture($req["id"]))
@@ -115,8 +120,7 @@ function apiEditionCategorie($req)
 }
 
 function apiSuppressionCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
-
+{
 	if (getPermissionEcriture($req["id"]))
 	{
 		delCategories(htmlspecialchars($req["id"]));
@@ -131,7 +135,7 @@ function apiSuppressionCategorie($req)
 }
 
 function apiCreationSousCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
 
@@ -149,7 +153,7 @@ function apiCreationSousCategorie($req)
 }
 
 function apiEditionSousCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
 
 	if (getPermissionEcriture($idCategorie))
@@ -166,11 +170,10 @@ function apiEditionSousCategorie($req)
 }
 
 function apiSuppressionSousCategorie($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["id"]);
-
 	if (getPermissionEcriture($idCategorie))
-	{
+	{ 
 		delSousCategories(htmlspecialchars($req["id"]));
 
 		$return["permissions"] = true;
@@ -178,12 +181,12 @@ function apiSuppressionSousCategorie($req)
 	}
 	else
 	{
-		echo json_encode(false);
+		echo json_encode(true);
 	}
 }
 
 function apiCreationColonne($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 // print_r($req);
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 // print_r($idCategorie);
@@ -201,7 +204,7 @@ function apiCreationColonne($req)
 }
 
 function apiEditionColonneNom($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 	
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 
@@ -219,7 +222,7 @@ function apiEditionColonneNom($req)
 }
 
 function apiSuppressionColonne($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 
@@ -238,7 +241,7 @@ function apiSuppressionColonne($req)
 }
 
 function apiCreationLigne($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 
@@ -255,7 +258,7 @@ function apiCreationLigne($req)
 }
 
 function apiSuppressionLigne($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 
 	if (getPermissionEcriture($idCategorie))
@@ -271,7 +274,7 @@ function apiSuppressionLigne($req)
 }
 
 function apiEditionCellule($req)
-{ //ajouter le control de permission (même groupe + Admin)
+{
 	$idCategorie = getIdCategorieDepuisSousCategorie($req["idSousCategorie"]);
 
 	if (getPermissionEcriture($idCategorie))
@@ -291,5 +294,13 @@ function apiConnexionValidation($req)
 	if (isset($req["identifiant"]) AND isset($req["motDePasse"]))
 	{ 
 		connexionValidation(htmlspecialchars($req["identifiant"]), htmlspecialchars($req["motDePasse"]));
+	}
+}
+
+function apiInscriptionValidation($req)
+{
+	if (isset($req["identifiant"]) AND isset($req["motDePasse"]) AND isset($req["adresseMail"]) AND isset($req["groupe"]))
+	{ 
+		inscriptionValidation(htmlspecialchars($req["identifiant"]), htmlspecialchars($req["motDePasse"]), htmlspecialchars($req["adresseMail"]), htmlspecialchars($req["groupe"]));
 	}
 }
