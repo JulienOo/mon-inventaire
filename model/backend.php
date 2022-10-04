@@ -458,7 +458,7 @@ function editCellules($id, $nom)
 
 function connexionValidation($pseudo, $motDePasse)
 {
-	//$motDePasse = sha1($motDePasse);
+	$motDePasse = sha1($motDePasse);
 
 // echo json_encode($motDePasse);
 	$bdd = connexionBdd();
@@ -485,7 +485,7 @@ function connexionValidation($pseudo, $motDePasse)
 	}
 	else
 	{
-		connexionValidationErreur();
+		connexionValidationErreur($pseudo);
 
 		if (connexionValidationErreurCheck())
 		{
@@ -498,12 +498,12 @@ function connexionValidation($pseudo, $motDePasse)
 	}
 }
 
-function connexionValidationErreur()
+function connexionValidationErreur($pseudo)
 {
 	$bdd = connexionBdd();
 
-	$sql = "INSERT INTO erreur_connexion ( ip, quand) VALUES ( ?, NOW())";
-	$bdd->prepare($sql)->execute([$_SERVER['REMOTE_ADDR']]);
+	$sql = "INSERT INTO erreur_connexion ( ip, quand, pseudo) VALUES ( ?, NOW(), ?)";
+	$bdd->prepare($sql)->execute([$_SERVER['REMOTE_ADDR'], $pseudo]);
 
 }
 
@@ -574,7 +574,7 @@ function getPermissionEcriture($id)
 
 if ($id == 0)
 {
-	if ($_SESSION['permissions'] == "editeur")
+	if ($_SESSION['permissions'] == "responsable" && $_SESSION['permissions'] == "editeur")
 	{
 		return true;
 	}
@@ -611,4 +611,53 @@ else
 		return false;
 	}
 	}
+}
+
+
+function inscriptionValidation($pseudo, $motDePasse, $adresseMail, $groupe)
+{
+	$bdd = connexionBdd();
+
+	$motDePasseSha = sha1($motDePasse);
+
+$data = [
+    'pseudo' => $pseudo,
+    'adresseMail' => $adresseMail,
+    'motDePasse' => $motDePasseSha,
+];
+
+	$sql = "INSERT INTO utilisateurs ( pseudo, adresseMail, motDePasse ) VALUES ( :pseudo, :adresseMail, :motDePasse )";
+	$bdd->prepare($sql)->execute($data);
+
+	$idUtilisateur = strval($bdd->lastInsertId());
+
+if ($groupe == "rejoin")
+{
+	$data = [
+	    'idUtilisateur' => strval($bdd->lastInsertId()),
+	    'idGroupe' => 1,
+	    'permissions' => "responsable",
+	];
+
+	$sql = "INSERT INTO groupe_utilisateurs (idUtilisateur, idGroupe, permissions) VALUES (:idUtilisateur, :idGroupe, :permissions );";
+	$bdd->prepare($sql)->execute($data);
+
+}
+else
+{
+	$sql = "INSERT INTO groupes (nomGroupe) VALUES ('mon groupe ');";
+	$bdd->prepare($sql)->execute();
+
+	$data = [
+	    'idUtilisateur' => $idUtilisateur,
+	    'idGroupe' => strval($bdd->lastInsertId()),
+	    'permissions' => "en attente",
+	];
+
+	$sql = "INSERT INTO groupe_utilisateurs (idUtilisateur, idGroupe, permissions) VALUES (:idUtilisateur, :idGroupe, :permissions );";
+	$bdd->prepare($sql)->execute($data);
+}
+
+	connexionValidation($pseudo, $motDePasse);
+
 }

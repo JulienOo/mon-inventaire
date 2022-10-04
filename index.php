@@ -9,7 +9,9 @@ require_once "controller/controller.php";
 
 // print_r(getIdCategorie("Nouvelle catégorie 2"));
 
-$_SESSION["permissions"] = "Editdeur";
+$_SESSION["permissions"] = "editeur";
+
+// print_r($_SERVER);
 
 $url = explode("/", rawurldecode($_SERVER['REQUEST_URI']));
 // print_r($url);
@@ -161,6 +163,10 @@ if (!connexionValidationErreurCheck())
 		{
 			connexion();
 		}
+		elseif ($url[1] == "inscription")
+		{
+			inscription();
+		}
 		elseif ($url[1] == "api")
 		{
 			if (isset($url[2]) AND isset($url[3]))
@@ -168,6 +174,10 @@ if (!connexionValidationErreurCheck())
 				if ($url[2] == "connexion" AND $url[3] == "validation")
 				{ 
 					apiConnexionValidation($_POST);
+				}
+				elseif($url[2] == "inscription" AND $url[3] == "validation")
+				{
+					apiInscriptionValidation($_POST);
 				}
 			}
 		}
