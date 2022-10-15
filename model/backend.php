@@ -574,7 +574,7 @@ function getPermissionEcriture($id)
 
 if ($id == 0)
 {
-	if ($_SESSION['permissions'] == "responsable" && $_SESSION['permissions'] == "editeur")
+	if ($_SESSION['permissions'] == "responsable" || $_SESSION['permissions'] == "editeur")
 	{
 		return true;
 	}
@@ -636,7 +636,7 @@ if ($groupe == "rejoin")
 	$data = [
 	    'idUtilisateur' => strval($bdd->lastInsertId()),
 	    'idGroupe' => 1,
-	    'permissions' => "responsable",
+	    'permissions' => "en attente",
 	];
 
 	$sql = "INSERT INTO groupe_utilisateurs (idUtilisateur, idGroupe, permissions) VALUES (:idUtilisateur, :idGroupe, :permissions );";
@@ -651,7 +651,7 @@ else
 	$data = [
 	    'idUtilisateur' => $idUtilisateur,
 	    'idGroupe' => strval($bdd->lastInsertId()),
-	    'permissions' => "en attente",
+	    'permissions' => "responsable",
 	];
 
 	$sql = "INSERT INTO groupe_utilisateurs (idUtilisateur, idGroupe, permissions) VALUES (:idUtilisateur, :idGroupe, :permissions );";
