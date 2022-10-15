@@ -28,7 +28,7 @@
       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
       </li>
-      <?php if ($_SESSION["permissions"] == "editeur")
+      <?php if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
       {
       	echo '
       <li class="context-menu__item">
@@ -51,7 +51,7 @@
 	<script type="text/javascript" src="/public/js/ajax.js"></script>
 	<script type="text/javascript" src="/public/js/categories.js"></script>
 	<?php 
-	if ($_SESSION["permissions"] == "editeur")
+	if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
 		{ 
 			echo '<script type="text/javascript" src="/public/js/clickDroit-Editeur.js"></script>';
 		}

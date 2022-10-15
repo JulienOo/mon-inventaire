@@ -571,11 +571,12 @@ function getPermissionLecture($id)
 function getPermissionEcriture($id)
 {
 	$bdd = connexionBdd();
-
+	// echo $id;
 if ($id == 0)
 {
-	if ($_SESSION['permissions'] == "responsable" || $_SESSION['permissions'] == "editeur")
-	{
+
+	if ($_SESSION['permissions'] == "responsable" XOR $_SESSION['permissions'] == "editeur")
+	{ 
 		return true;
 	}
 	else
@@ -597,7 +598,7 @@ else
 	$result = $req->fetchAll();
 	if (isset($result[0]["idGroupe"]))
 	{
-		if ($result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "editeur")
+		if ($result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "responsable" XOR $result[0]["idGroupe"] == $_SESSION["group"] AND $_SESSION['permissions'] == "editeur")
 		{
 			return true;
 		}
