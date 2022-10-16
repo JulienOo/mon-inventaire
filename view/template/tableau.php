@@ -23,7 +23,7 @@
   </table>
 	</section>
 
-      <?php if ($_SESSION["permissions"] == "editeur")
+      <?php if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
       {
         echo '<section class="parentCroixTableau">
 	<section class="croixTableau">
@@ -48,7 +48,7 @@
 <!--       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i>Ouvrir</a>
       </li> -->
-      <?php if ($_SESSION["permissions"] == "editeur")
+      <?php if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
       {
         echo '<li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="EditHead"><i class="fa fa-edit"></i>renommer la cellule</a>
@@ -67,7 +67,7 @@
 <!--       <li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="ViewContenu"><i class="fa fa-eye"></i>Ouvrir</a>
       </li> -->
-      <?php if ($_SESSION["permissions"] == "editeur")
+      <?php if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
       {
         echo '<li class="context-menu__item">
         <a href="#" class="context-menu__link" data-action="EditContenu"><i class="fa fa-edit"></i>Modifier la cellule</a>
@@ -88,7 +88,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script type="text/javascript" src="/public/js/ajax.js"></script>
   <?php 
-  if ($_SESSION["permissions"] == "editeur")
+  if ($_SESSION["permissions"] == "responsable" || $_SESSION["permissions"] == "editeur")
     { 
       echo '<script type="text/javascript" src="/public/js/clickDroitContenuTableau-Editeur.js"></script>';
     }
