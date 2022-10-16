@@ -20,6 +20,61 @@ $result = $req->fetchAll();
 return json_encode($result);
 }
 
+function getCategorie($type, $nom)
+{
+	$bdd = connexionBdd();
+
+if ($type == "creation")
+{
+$equal = false;
+for ($i=0; $equal == false; $i++) 
+{ 
+
+	$req = $bdd->prepare("SELECT nomCategorie as nom, id FROM categories WHERE nomCategorie = :nomCategorie AND idGroupe = :idGroupe");
+	$req->bindParam(":nomCategorie", $nom);
+	$req->bindParam(":idGroupe", $_SESSION["group"]);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if (isset($result[0][0]))
+	{
+		if ($i == 0)
+		{
+			$nom .= "e";
+		}
+
+		$equal = true;
+	}
+	else
+	{
+		$nom .= "e";
+	}
+}
+}
+else
+{
+	$bdd = connexionBdd();
+
+	$req = $bdd->prepare("SELECT nomCategorie as nom, id FROM categories WHERE nomCategorie = :nomCategorie AND idGroupe = :idGroupe");
+	$req->bindParam(":nomCategorie", $nom);
+	$req->bindParam(":idGroupe", $_SESSION["group"]);
+	$req->execute();
+
+	$result = $req->fetchAll();
+
+	if (isset($result[0][0]))
+	{ 
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+		return $nom;
+}
+
 function getIdCategorie($nom)
 {
 	$bdd = connexionBdd();
@@ -129,7 +184,7 @@ function getSousCategories($categorie)
 		SELECT nomSousCategorie as nom, sous_categories.id
 		FROM sous_categories
 		INNER JOIN categories ON categories.id = sous_categories.idCategorie
-		WHERE :categorie = categories.nomCategorie AND categories.idGroupe = :idGroupe
+		WHERE :categorie = categories.nomCategorie AND categories.idGroupe = :idGroupe 
 		");
 	$req->bindParam(':categorie', $categorie, PDO::PARAM_STR);
 	$req->bindParam(':idGroupe', $_SESSION["group"], PDO::PARAM_STR);
@@ -543,24 +598,18 @@ function getPermissionLecture($id)
 	$req = $bdd->prepare("
 		SELECT idGroupe
 		FROM categories
-		WHERE id = :idCategorie
+		WHERE id = :idCategorie AND idGroupe = :idGroupe
 		");
 
 	$req->bindParam(':idCategorie', $id, PDO::PARAM_STR);
+	$req->bindParam(':idGroupe', $_SESSION["group"], PDO::PARAM_STR);
 	$req->execute();
 
 	$result = $req->fetchAll();
 
 	if (isset($result[0]["idGroupe"]))
 	{
-		if ($result[0]["idGroupe"] == $_SESSION["group"])
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return true;
 	}
 	else
 	{

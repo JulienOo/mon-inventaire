@@ -87,11 +87,11 @@ function inscription()
 
 function apiCreationCategorie($req)
 {
-
-
 	if (getPermissionEcriture(0))
 	{
-		$return["lastId"] = setCategories(htmlspecialchars($req["nom"]));
+
+		$return["valeur"] = getCategorie("creation", htmlspecialchars($req["nom"]));
+		$return["lastId"] = setCategories($return["valeur"]);
 		$return["permissions"] = true;
 		echo json_encode($return);
 	}
@@ -107,7 +107,12 @@ function apiEditionCategorie($req)
 
 	if (getPermissionEcriture($req["id"]))
 	{
-		editCategories(htmlspecialchars($req["id"]), htmlspecialchars($req["nom"]));
+		$return["changement"] = getCategorie("edition", htmlspecialchars($req["nom"]));
+
+		if ($return["changement"] == true)
+		{
+			editCategories(htmlspecialchars($req["id"]), $req["nom"]);
+		}
 
 		$return["permissions"] = true;
 		echo json_encode($return);

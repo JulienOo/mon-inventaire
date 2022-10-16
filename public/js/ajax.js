@@ -25,7 +25,7 @@ function creationCategorieAJAX(){
           console.log(output_success);
           if (output_success["permissions"] == true)
           {
-            document.getElementById("creation").outerHTML = '<div id="'+output_success+'" class="cube task" href="Nouvelle catégorie '+number+'" data-id="'+number+'">Nouvelle catégorie '+number+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
+            document.getElementById("creation").outerHTML = '<div id="'+output_success["lastId"]+'" class="cube task" href="'+output_success["valeur"]+'" data-id="'+number+'">'+output_success["valeur"]+'</div>'+'<div id="creation" class="cube ajouterCategorie" href="#" onclick="creationCategorie()"><img src="https://www.svgrepo.com/show/152121/plus.svg"></div>';
           }
           else
           {
@@ -53,7 +53,8 @@ function creationCategorieAJAX(){
 
 /* -------------------------------------------------------------------------------------------- */
 
-function editionCategorieAJAX(id, valeur, dataId){
+function editionCategorieAJAX(id, valeur, dataId, lastValue){
+  // alert(lastValue);
   try{
   let Datas = new FormData();
     Datas.append("id", id);
@@ -81,8 +82,13 @@ function editionCategorieAJAX(id, valeur, dataId){
 
           if (output_success["permissions"] == true)
           {
-            document.getElementById("tasks").children[dataId-1].innerHTML = valeur;
-            document.getElementById("tasks").children[dataId-1].setAttribute("href", valeur);
+            if (output_success["changement"] == false) 
+            {
+                valeur = lastValue;
+                alert("Une catégorie possède déjà ce nom.");
+            }
+                document.getElementById("tasks").children[dataId-1].innerHTML = valeur;
+                document.getElementById("tasks").children[dataId-1].setAttribute("href", valeur);
           }
           else
           {

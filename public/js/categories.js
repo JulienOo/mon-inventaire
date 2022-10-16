@@ -18,7 +18,7 @@ function creationCategorie() {
 }
 
 var dataId;
-function validationEdition(dataId, id)
+function validationEdition(dataId, id, lastValue)
 {
 	value = document.getElementById("tasks").children[dataId-1].children[0].value;
 	placeholder = document.getElementById("tasks").children[dataId-1].children[0].placeholder;
@@ -36,7 +36,7 @@ function validationEdition(dataId, id)
 
 	console.log("dataIds "+dataId);
 
-	editionCategorieAJAX(id, value, dataId)
+	editionCategorieAJAX(id, value, dataId, lastValue)
 }
 	// console.log(value);
 

@@ -237,7 +237,7 @@
       // taskItemInContext.removeAttribute("href");
       console.log("content : "+content);
 
-      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+", "+taskItemInContext.getAttribute("id")+")'>valider</button>"
+      taskItemInContext.innerHTML = "<input type='text' value='"+content+"' placeholder='"+content+"' ><button onclick='validationEdition("+taskItemInContext.getAttribute("data-id")+", "+taskItemInContext.getAttribute("id")+", \""+taskItemInContext.getAttribute("href")+"\")'>valider</button>"
 
 
     }
